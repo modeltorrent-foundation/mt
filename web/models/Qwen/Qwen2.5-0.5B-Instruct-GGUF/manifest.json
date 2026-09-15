@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "modelId": "Qwen/Qwen2.5-0.5B-Instruct-GGUF",
+  "files": [
+    {
+      "path": "qwen2.5-0.5b-instruct-q4_k_m.gguf",
+      "size": 491400032,
+      "sha256": "74a4da8c9fdbcd15bd1f6d01d621410d31c6fc00986f5eb687824e7b93d7a9db"
+    }
+  ],
+  "license": {
+    "spdx": "Apache-2.0",
+    "redistributable": true
+  },
+  "publisher": {
+    "keyId": "ed25519:modeltorrent-foundation-2026",
+    "signature": "hbZv8geeRylHE1VdYH0gqkPKPeUpaZDzeIrl4pnJT8a8Z8bu0bzn21brGLnXTGfUHfKgorM1i7Srfq1Rz/8ECg=="
+  },
+  "magnet": "magnet:?xt=urn:btih:b030b1ceb2459628be5e575481df189ba7c71d6b\u0026xt=urn:btmh:12202497ad29a277588a7c657258dedacdf4746cfd48d6e7bbbe289a0dfd76e57fcc\u0026dn=qwen2.5-0.5b-instruct-q4_k_m.gguf\u0026tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337%2Fannounce\u0026tr=udp%3A%2F%2Fopen.demonii.com%3A1337%2Fannounce\u0026tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A6969%2Fannounce\u0026tr=udp%3A%2F%2Fexodus.desync.com%3A6969%2Fannounce\u0026tr=udp%3A%2F%2Ftracker.torrent.eu.org%3A451%2Fannounce\u0026tr=udp%3A%2F%2Fopen.stealth.si%3A80%2Fannounce",
+  "webseeds": null,
+  "createdAt": "2026-09-15T12:01:23Z"
+}

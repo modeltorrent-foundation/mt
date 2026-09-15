@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-15T09:53:05Z",
+  "generatedAt": "2026-09-15T12:01:23Z",
   "models": [
     {
       "license": {
@@ -30,6 +30,36 @@
       "manifest": "models/demo/tiny-bundle/manifest.json",
       "modelId": "demo/tiny-bundle",
       "sizeBytes": 196608
+    },
+    {
+      "license": {
+        "redistributable": true,
+        "spdx": "Apache-2.0"
+      },
+      "magnet": "magnet:?xt=urn:btih:23bbb1ba4c30d3c844e753182fabedd528983511\u0026xt=urn:btmh:12204bd4f72e4e957686f0bc48df4eeb128c892f75159c136333f9b9e1d4dbc92661\u0026dn=Qwen3-0.6B-Q8_0.gguf\u0026tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337%2Fannounce\u0026tr=udp%3A%2F%2Fopen.demonii.com%3A1337%2Fannounce\u0026tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A6969%2Fannounce\u0026tr=udp%3A%2F%2Fexodus.desync.com%3A6969%2Fannounce\u0026tr=udp%3A%2F%2Ftracker.torrent.eu.org%3A451%2Fannounce\u0026tr=udp%3A%2F%2Fopen.stealth.si%3A80%2Fannounce",
+      "manifest": "models/Qwen/Qwen3-0.6B-GGUF/manifest.json",
+      "modelId": "Qwen/Qwen3-0.6B-GGUF",
+      "sizeBytes": 639446688
+    },
+    {
+      "license": {
+        "redistributable": true,
+        "spdx": "Apache-2.0"
+      },
+      "magnet": "magnet:?xt=urn:btih:cf34e9c6295bfc2f6f43bbf040537a16a5658d05\u0026xt=urn:btmh:1220a9a0036909c92c87a80b9a2c43024c7833b9c366c37d3876c24b7d73f521ad2d\u0026dn=smollm2-360m-instruct-q8_0.gguf\u0026tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337%2Fannounce\u0026tr=udp%3A%2F%2Fopen.demonii.com%3A1337%2Fannounce\u0026tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A6969%2Fannounce\u0026tr=udp%3A%2F%2Fexodus.desync.com%3A6969%2Fannounce\u0026tr=udp%3A%2F%2Ftracker.torrent.eu.org%3A451%2Fannounce\u0026tr=udp%3A%2F%2Fopen.stealth.si%3A80%2Fannounce",
+      "manifest": "models/HuggingFaceTB/SmolLM2-360M-Instruct-GGUF/manifest.json",
+      "modelId": "HuggingFaceTB/SmolLM2-360M-Instruct-GGUF",
+      "sizeBytes": 386404992
+    },
+    {
+      "license": {
+        "redistributable": true,
+        "spdx": "Apache-2.0"
+      },
+      "magnet": "magnet:?xt=urn:btih:b030b1ceb2459628be5e575481df189ba7c71d6b\u0026xt=urn:btmh:12202497ad29a277588a7c657258dedacdf4746cfd48d6e7bbbe289a0dfd76e57fcc\u0026dn=qwen2.5-0.5b-instruct-q4_k_m.gguf\u0026tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337%2Fannounce\u0026tr=udp%3A%2F%2Fopen.demonii.com%3A1337%2Fannounce\u0026tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A6969%2Fannounce\u0026tr=udp%3A%2F%2Fexodus.desync.com%3A6969%2Fannounce\u0026tr=udp%3A%2F%2Ftracker.torrent.eu.org%3A451%2Fannounce\u0026tr=udp%3A%2F%2Fopen.stealth.si%3A80%2Fannounce",
+      "manifest": "models/Qwen/Qwen2.5-0.5B-Instruct-GGUF/manifest.json",
+      "modelId": "Qwen/Qwen2.5-0.5B-Instruct-GGUF",
+      "sizeBytes": 491400032
     }
   ],
   "schemaVersion": 1

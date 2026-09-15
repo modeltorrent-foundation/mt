@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "modelId": "HuggingFaceTB/SmolLM2-360M-Instruct-GGUF",
+  "files": [
+    {
+      "path": "smollm2-360m-instruct-q8_0.gguf",
+      "size": 386404992,
+      "sha256": "48ab3034d0dd401fbc721eb1df3217902fee7dab9078992d66431f09b7750201"
+    }
+  ],
+  "license": {
+    "spdx": "Apache-2.0",
+    "redistributable": true
+  },
+  "publisher": {
+    "keyId": "ed25519:modeltorrent-foundation-2026",
+    "signature": "7sfaaFnpyIvCS4JL+4QwtsDeByKgANtJL/H0mgwHmqCjfpXgXWld3D6g00mKe+r1KxV40OVU/sQaD+LHTMsuAg=="
+  },
+  "magnet": "magnet:?xt=urn:btih:cf34e9c6295bfc2f6f43bbf040537a16a5658d05\u0026xt=urn:btmh:1220a9a0036909c92c87a80b9a2c43024c7833b9c366c37d3876c24b7d73f521ad2d\u0026dn=smollm2-360m-instruct-q8_0.gguf\u0026tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337%2Fannounce\u0026tr=udp%3A%2F%2Fopen.demonii.com%3A1337%2Fannounce\u0026tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A6969%2Fannounce\u0026tr=udp%3A%2F%2Fexodus.desync.com%3A6969%2Fannounce\u0026tr=udp%3A%2F%2Ftracker.torrent.eu.org%3A451%2Fannounce\u0026tr=udp%3A%2F%2Fopen.stealth.si%3A80%2Fannounce",
+  "webseeds": null,
+  "createdAt": "2026-09-15T12:01:22Z"
+}

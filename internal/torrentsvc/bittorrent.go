@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"strconv"
 	"strings"
 	"sync"
 
@@ -41,14 +42,30 @@ func offlineClientConfig(dataDir string) *torrent.ClientConfig {
 
 func onlineClientConfig(dataDir string) *torrent.ClientConfig {
 	cfg := torrent.NewDefaultClientConfig()
-	cfg.ListenPort = 0
+	cfg.ListenPort = onlineListenPort()
 	cfg.NoDefaultPortForwarding = true
+	// DHT and trackers are enabled by default here (unlike offlineClientConfig)
+	// so a real swarm can form. Make the intent explicit.
+	cfg.NoDHT = false
+	cfg.DisableTrackers = false
 	cfg.Seed = true
 	cfg.DataDir = dataDir
 	return cfg
 }
 
-func buildMetaInfo(files []string, webseeds []string) (metainfo.MetaInfo, *metainfo.Info, error) {
+// onlineListenPort lets an always-on seeder pin a fixed, reachable BitTorrent
+// port via MT_LISTEN_PORT (0/unset keeps the historical random-port behaviour).
+// This is operational config, not part of the PROTOCOL wire format.
+func onlineListenPort() int {
+	if v := os.Getenv("MT_LISTEN_PORT"); v != "" {
+		if p, err := strconv.Atoi(v); err == nil && p > 0 && p < 65536 {
+			return p
+		}
+	}
+	return 0
+}
+
+func buildMetaInfo(files []string, webseeds []string, trackers []string) (metainfo.MetaInfo, *metainfo.Info, error) {
 	if len(files) == 0 {
 		return metainfo.MetaInfo{}, nil, fmt.Errorf("torrentsvc: Create: no files")
 	}
@@ -57,8 +74,11 @@ func buildMetaInfo(files []string, webseeds []string) (metainfo.MetaInfo, *metai
 		return metainfo.MetaInfo{}, nil, err
 	}
 	mi := metainfo.MetaInfo{
-		AnnounceList: nil,
+		AnnounceList: announceListFrom(trackers),
 		UrlList:      webseeds,
+	}
+	if len(trackers) > 0 {
+		mi.Announce = trackers[0]
 	}
 	mi.SetDefaults()
 	info := metainfo.Info{PieceLength: 256 * 1024}
@@ -116,6 +136,10 @@ func magnetString(mi *metainfo.MetaInfo) (string, error) {
 }
 
 func createBitTorrent(files []string, webseeds []string) (Metainfo, string, error) {
+	return createBitTorrentWithTrackers(files, webseeds, nil)
+}
+
+func createBitTorrentWithTrackers(files, webseeds, trackers []string) (Metainfo, string, error) {
 	absFiles := make([]string, len(files))
 	for i, f := range files {
 		a, err := filepath.Abs(f)
@@ -124,7 +148,7 @@ func createBitTorrent(files []string, webseeds []string) (Metainfo, string, erro
 		}
 		absFiles[i] = a
 	}
-	mi, info, err := buildMetaInfo(absFiles, webseeds)
+	mi, info, err := buildMetaInfo(absFiles, webseeds, trackers)
 	if err != nil {
 		return Metainfo{}, "", err
 	}
@@ -308,7 +332,10 @@ func MetainfoForDownload(dataDir string, webseeds []string) (Metainfo, error) {
 	if len(paths) == 0 {
 		return Metainfo{}, fmt.Errorf("torrentsvc: no files in %s", dataDir)
 	}
-	mi, _, err := createBitTorrent(paths, webseeds)
+	// The real seed path announces to public trackers in addition to the DHT so
+	// peers can find an always-on seeder. Trackers are outside the info dict, so
+	// the infohash is unchanged and still matches the published magnet.
+	mi, _, err := createBitTorrentWithTrackers(paths, webseeds, DefaultTrackers)
 	return mi, err
 }
 
