@@ -1,0 +1,11 @@
+[project]
+name = "modeltorrent-hf"
+version = "0.0.0"
+description = "Hugging Face-compatible resolver for Model Torrent (Wave 0 scaffold)"
+requires-python = ">=3.9"
+license = "AGPL-3.0-or-later"
+license-files = ["../LICENSE"]
+
+[tool.pytest.ini_options]
+# Make modeltorrent_hf importable when pytest runs from the repo root.
+pythonpath = ["."]

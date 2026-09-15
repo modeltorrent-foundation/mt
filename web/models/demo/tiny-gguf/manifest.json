@@ -1,0 +1,24 @@
+{
+  "createdAt": "2026-09-15T00:00:00Z",
+  "files": [
+    {
+      "path": "Q4_K_M.gguf",
+      "sha256": "5795aa80667eef16e1ff7a477d30b2a3922930113b1a03db4b41ca571ec5a1d6",
+      "size": 65536
+    }
+  ],
+  "license": {
+    "redistributable": true,
+    "spdx": "MIT"
+  },
+  "magnet": "magnet:?xt=urn:btih:030640aae91e7d3f7a5407c4ba8d69c38feb31c0\u0026xt=urn:btmh:122019281105549c12b766a00b030fa633e55e528fc6f91991496f0ed94b3ad693a7\u0026dn=Q4_K_M.gguf",
+  "modelId": "demo/tiny-gguf",
+  "publisher": {
+    "keyId": "ed25519:demo000000000000000000000000000000000000000000000000000000",
+    "signature": ""
+  },
+  "schemaVersion": 1,
+  "webseeds": [
+    "file://fixtures/demo/tiny-gguf"
+  ]
+}

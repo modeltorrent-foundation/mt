@@ -1,0 +1,36 @@
+{
+  "generatedAt": "2026-09-15T09:53:05Z",
+  "models": [
+    {
+      "license": {
+        "redistributable": true,
+        "spdx": "Apache-2.0"
+      },
+      "magnet": "magnet:?xt=urn:btih:33018037dbe9d2527f3cd065f21c3388cec3aa8e\u0026xt=urn:btmh:122015e5da1d297354c94a17d1214afcc8e20bb6bed2edafe3009318af40e36de7c9\u0026dn=tiny-safetensors",
+      "manifest": "models/demo/tiny-safetensors/manifest.json",
+      "modelId": "demo/tiny-safetensors",
+      "sizeBytes": 131072
+    },
+    {
+      "license": {
+        "redistributable": true,
+        "spdx": "MIT"
+      },
+      "magnet": "magnet:?xt=urn:btih:030640aae91e7d3f7a5407c4ba8d69c38feb31c0\u0026xt=urn:btmh:122019281105549c12b766a00b030fa633e55e528fc6f91991496f0ed94b3ad693a7\u0026dn=Q4_K_M.gguf",
+      "manifest": "models/demo/tiny-gguf/manifest.json",
+      "modelId": "demo/tiny-gguf",
+      "sizeBytes": 65536
+    },
+    {
+      "license": {
+        "redistributable": true,
+        "spdx": "Apache-2.0"
+      },
+      "magnet": "magnet:?xt=urn:btih:8b20915a6e9d15776da9f225ec9f82e78ba1061b\u0026xt=urn:btmh:12208a2fe3b2d21a66ee61fae54dd359d220143f994fcfccc5c3f4523a429d072325\u0026dn=tiny-bundle",
+      "manifest": "models/demo/tiny-bundle/manifest.json",
+      "modelId": "demo/tiny-bundle",
+      "sizeBytes": 196608
+    }
+  ],
+  "schemaVersion": 1
+}

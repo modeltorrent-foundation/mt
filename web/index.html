@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Model Torrent</title>
+  <link rel="stylesheet" href="app.css" />
+</head>
+<body>
+  <header>
+    <h1>Model Torrent</h1>
+    <p class="tagline">Open-weight models, peer to peer. No account. No owner.</p>
+    <input id="search" type="search" placeholder="Search models (e.g. demo, Qwen, Mistral)" autocomplete="off" />
+  </header>
+
+  <main id="results" aria-live="polite"></main>
+
+  <template id="model-card">
+    <article class="model">
+      <header class="model-header">
+        <h2 class="model-id"></h2>
+        <span class="license"></span>
+      </header>
+
+      <section class="magnet-section">
+        <h3 class="section-label">Magnet</h3>
+        <div class="magnet-row">
+          <code class="magnet-uri" tabindex="0" title="Click to copy magnet URI"></code>
+          <button type="button" class="btn-copy-magnet">Copy</button>
+        </div>
+        <a class="magnet-external" rel="nofollow">Open in torrent client</a>
+      </section>
+
+      <section class="files-section">
+        <h3 class="section-label">Files</h3>
+        <ul class="files"></ul>
+      </section>
+
+      <section class="download-section">
+        <h3 class="section-label">Browser download</h3>
+        <button type="button" class="btn-download">Download in browser</button>
+        <p class="download-hint"></p>
+        <div class="download-progress" hidden>
+          <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+            <div class="progress-fill"></div>
+          </div>
+          <p class="progress-stats"></p>
+          <p class="download-status"></p>
+          <ul class="save-links"></ul>
+        </div>
+      </section>
+
+      <section class="health-section">
+        <h3 class="section-label">Swarm health</h3>
+        <div class="health">
+          <span class="seeders"></span>
+          <span class="peers"></span>
+          <span class="live-peers"></span>
+          <span class="checksum"></span>
+        </div>
+      </section>
+    </article>
+  </template>
+
+  <footer>
+    <p>Identity is a magnet, not a domain. Catalog mirrors: git, HTTPS, IPFS.</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/webtorrent@latest/webtorrent.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

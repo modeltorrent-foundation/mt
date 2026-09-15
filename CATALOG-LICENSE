@@ -1,0 +1,15 @@
+Model Torrent — catalog metadata license
+
+Copyright waiver for catalog metadata in this repository, including
+catalog.json indexes, per-model manifest.json files, model cards, tags,
+hashes, and other descriptive metadata that does not include model weights.
+
+To the extent possible under law, Model Torrent Contributors have waived all
+copyright and related or neighboring rights to catalog metadata in this
+repository under the Creative Commons CC0 1.0 Universal Public Domain
+Dedication.
+
+For the full legal text, see <https://creativecommons.org/publicdomain/zero/1.0/legalcode>.
+
+Model weights distributed via manifests remain under each publisher's license
+(SPDX id on every manifest). This file does not relicense weights.

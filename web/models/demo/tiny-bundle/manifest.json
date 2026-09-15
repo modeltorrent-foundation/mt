@@ -1,0 +1,34 @@
+{
+  "createdAt": "2026-09-15T00:00:00Z",
+  "files": [
+    {
+      "path": "model.safetensors",
+      "sha256": "22e73069fca2a12436d0bde4b3a35c4a6c707273360c9e2945b9987e9bd5fa4e",
+      "size": 65536
+    },
+    {
+      "path": "tokenizer.json",
+      "sha256": "d84648205ac9544626d4eada2184d52c706770f6805c53f74fac30787a6eab2b",
+      "size": 65536
+    },
+    {
+      "path": "Q4_K_M.gguf",
+      "sha256": "5795aa80667eef16e1ff7a477d30b2a3922930113b1a03db4b41ca571ec5a1d6",
+      "size": 65536
+    }
+  ],
+  "license": {
+    "redistributable": true,
+    "spdx": "Apache-2.0"
+  },
+  "magnet": "magnet:?xt=urn:btih:8b20915a6e9d15776da9f225ec9f82e78ba1061b\u0026xt=urn:btmh:12208a2fe3b2d21a66ee61fae54dd359d220143f994fcfccc5c3f4523a429d072325\u0026dn=tiny-bundle",
+  "modelId": "demo/tiny-bundle",
+  "publisher": {
+    "keyId": "ed25519:demo000000000000000000000000000000000000000000000000000000",
+    "signature": ""
+  },
+  "schemaVersion": 1,
+  "webseeds": [
+    "file://fixtures/demo/tiny-bundle"
+  ]
+}

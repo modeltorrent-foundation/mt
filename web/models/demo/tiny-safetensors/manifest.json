@@ -1,0 +1,29 @@
+{
+  "createdAt": "2026-09-15T00:00:00Z",
+  "files": [
+    {
+      "path": "model.safetensors",
+      "sha256": "22e73069fca2a12436d0bde4b3a35c4a6c707273360c9e2945b9987e9bd5fa4e",
+      "size": 65536
+    },
+    {
+      "path": "tokenizer.json",
+      "sha256": "d84648205ac9544626d4eada2184d52c706770f6805c53f74fac30787a6eab2b",
+      "size": 65536
+    }
+  ],
+  "license": {
+    "redistributable": true,
+    "spdx": "Apache-2.0"
+  },
+  "magnet": "magnet:?xt=urn:btih:33018037dbe9d2527f3cd065f21c3388cec3aa8e\u0026xt=urn:btmh:122015e5da1d297354c94a17d1214afcc8e20bb6bed2edafe3009318af40e36de7c9\u0026dn=tiny-safetensors",
+  "modelId": "demo/tiny-safetensors",
+  "publisher": {
+    "keyId": "ed25519:demo000000000000000000000000000000000000000000000000000000",
+    "signature": ""
+  },
+  "schemaVersion": 1,
+  "webseeds": [
+    "file://fixtures/demo/tiny-safetensors"
+  ]
+}
