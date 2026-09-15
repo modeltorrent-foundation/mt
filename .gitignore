@@ -25,6 +25,10 @@ shim/*.egg-info/
 # Local model downloads (mt get writes here; never commit GB-scale data)
 /downloads/
 
+# Scratch workspace for the seeder pipeline: raw GGUF downloads, cross-compiled
+# binaries, and the publisher private seed. Never commit GB-scale data or keys.
+/.work/
+
 # `mt get` output dirs and the torrent client's SQLite sidecar
 /dest/
 .torrent.db

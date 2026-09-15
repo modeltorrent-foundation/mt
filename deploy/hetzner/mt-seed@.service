@@ -1,0 +1,30 @@
+[Unit]
+# Always-on Model Torrent seeder, one instance per model directory.
+# %i is the model slug under /opt/model-torrent/seed/<slug> (a directory that
+# contains exactly one model file so the rebuilt infohash matches the published
+# magnet). Enable with, e.g.:
+#   systemctl enable --now mt-seed@qwen3-0.6b
+Description=Model Torrent 24/7 seeder (%i)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+# Per-instance MT_LISTEN_PORT (distinct port per model) lives here.
+EnvironmentFile=/opt/model-torrent/env/%i.env
+WorkingDirectory=/opt/model-torrent
+ExecStart=/opt/model-torrent/bin/mt seed /opt/model-torrent/seed/%i
+Restart=always
+RestartSec=10
+# Be a polite tenant: never let seeding threaten the box's primary services.
+# MemoryHigh applies reclaim pressure (most of the RSS is reclaimable mmap'd
+# file cache); MemoryMax is a generous hard stop so a busy swarm never gets
+# OOM-killed into a restart loop.
+Nice=10
+IOSchedulingClass=idle
+MemoryHigh=512M
+MemoryMax=1G
+TasksMax=256
+
+[Install]
+WantedBy=multi-user.target
