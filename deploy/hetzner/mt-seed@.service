@@ -17,9 +17,13 @@ ExecStart=/opt/model-torrent/bin/mt seed /opt/model-torrent/seed/%i
 Restart=always
 RestartSec=10
 # Be a polite tenant: never let seeding threaten the box's primary services.
+# MemoryHigh applies reclaim pressure (most of the RSS is reclaimable mmap'd
+# file cache); MemoryMax is a generous hard stop so a busy swarm never gets
+# OOM-killed into a restart loop.
 Nice=10
 IOSchedulingClass=idle
-MemoryMax=512M
+MemoryHigh=512M
+MemoryMax=1G
 TasksMax=256
 
 [Install]
