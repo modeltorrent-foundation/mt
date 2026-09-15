@@ -10,9 +10,15 @@ Do not post to Reddit or boost the social copy until real models are seeding.
       signed manifests + hybrid v1/v2 magnets with public trackers in
       `web/catalog.json`; always-on `systemd` seeder deployed via
       `deploy/hetzner/` — DHT + trackers, auto-restart, survives reboot.
-      Cross-internet swarm fetch verified end-to-end, checksum passed.)
-      - [ ] HTTP webseeds (BEP-19): deferred until a neutral public mirror/domain
-            exists — must not webseed from Hugging Face (SCOPE) or leak a personal IP.
+      Cross-internet swarm fetch verified end-to-end, checksum passed.
+      Merged to `main` via PR #1.)
+      - [ ] HTTP webseeds (BEP-19): runbook + generator ready
+            (`deploy/r2-webseeds/`); **blocked on provisioning a public R2
+            bucket + domain** (needs the account owner — the only R2 creds here
+            are scoped to a private research bucket, which must not hold weights).
+            Verified locally that adding `MT_WEBSEED_BASE` keeps the v1/v2
+            infohash identical (magnet only gains an additive `&ws=` hint).
+            Must not webseed from Hugging Face (SCOPE) or leak a personal IP.
 - [ ] User-facing README / release binaries (`go install` works after this push)
 - [ ] CI + 8–10 `good first issue` tickets
 - [ ] Second catalog mirror (Codeberg/GitLab)
