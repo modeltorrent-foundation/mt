@@ -6,16 +6,18 @@ Do not post to Reddit or boost the social copy until real models are seeding.
 - [x] Hide or fix the browser WebTorrent button (needs WSS/WebRTC seeder)
       Public WSS trackers (`wss://tracker.openwebtorrent.com`,
       `wss://tracker.webtorrent.dev`) are on generated magnets; infohashes
-      unchanged. Browser path is HTTP webseeds (R2 + same-origin fixtures) with
-      CORS, not `webtorrent-hybrid` on the Hetzner box. Button stays enabled
-      when an HTTP webseed exists; otherwise disabled with copy-magnet + `mt get`.
+      unchanged. Browser path is HTTP webseeds (R2 + same-origin fixtures) plus
+      a memory-capped `mt-webtorrent-hybrid` unit on Hetzner for the three small
+      GGUFs (not 8B). Button stays enabled when an HTTP webseed exists;
+      otherwise disabled with copy-magnet + `mt get`.
 - [x] Deploy `web/` (Pages or Cloudflare) — GitHub Pages workflow on
       `modeltorrent-foundation/mt` serves `web/` (after `make fixtures`).
       Live: https://modeltorrent.org/ (Cloudflare Registrar + Pages custom
-      hostname; SSL/DNS may still be provisioning),
-      https://modeltorrent.pages.dev/ (Cloudflare Pages), and
+      hostname; HTTPS is live — Google Trust Services WE1 cert, HTTP 301 to
+      HTTPS), https://modeltorrent.pages.dev/ (Cloudflare Pages), and
       https://modeltorrent-foundation.github.io/mt/ (GitHub Pages workflow).
       Shim `DEFAULT_ENDPOINT` is `https://modeltorrent.org` (`HF_ENDPOINT` overrides).
+      Qwen3-8B is on the live Pages catalog (`wrangler pages deploy web`).
 - [x] 2–3 real Apache-2.0 GGUFs with magnets + a 24/7 seeder
       (Qwen3-0.6B-Q8_0, SmolLM2-360M-Instruct-Q8_0, Qwen2.5-0.5B-Instruct-Q4_K_M;
       signed manifests + hybrid v1/v2 magnets with public trackers in
@@ -30,6 +32,12 @@ Do not post to Reddit or boost the social copy until real models are seeding.
             and add `&ws=`. Hetzner `mt-seed@*` units left as a bonus peer.
             CORS rules in `deploy/r2-webseeds/cors.json` so the browser can
             Range-GET those objects.
+      Wave 4: `mt pack popular` now seeds the four live Apache-2.0 catalog
+      GGUFs (3 small + Qwen3-8B) from `web/catalog.json`, not `demo/tiny-*`
+      fixtures or the testdata `Qwen/Qwen3-8B` stub. The 8B file is also on
+      the Hetzner disk (`mt-seed@qwen3-8b`, port 42416) because free space
+      stayed ≥5GiB after the copy. Hybrid WebRTC seeds the three small GGUFs
+      only (`mt-webtorrent-hybrid`).
 - [ ] User-facing README / release binaries (`go install` works after this push)
 - [x] CI + 8–10 `good first issue` tickets
       GitHub Actions `CI` (`go test ./...` + pytest shim) with README badge.

@@ -27,6 +27,7 @@ MODELS=(
   "qwen3-0.6b:Qwen3-0.6B-Q8_0.gguf:42413"
   "smollm2-360m:smollm2-360m-instruct-q8_0.gguf:42414"
   "qwen2.5-0.5b:qwen2.5-0.5b-instruct-q4_k_m.gguf:42415"
+  "qwen3-8b:Qwen3-8B-Q4_K_M.gguf:42416"
 )
 
 echo ">> cross-compiling mt for linux/amd64"

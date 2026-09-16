@@ -17,7 +17,9 @@ webseed host for the first-wave models.
   `https://pub-60d277f41b154e4f826375a17187b003.r2.dev`. First-wave GGUFs plus
   Qwen3-8B Q4_K_M are in the catalog magnets as `&ws=` (existing infohashes
   unchanged). Weights must **not** go in the private `claude-intercept-research`
-  research bucket. Do **not** copy the 8B onto the Hetzner seeder.
+  research bucket. Qwen3-8B is also BitTorrent-seeded from Hetzner
+  (`mt-seed@qwen3-8b`) because disk headroom stayed ≥5GiB after the copy;
+  browsers still fetch 8B over the R2 webseed (hybrid does not load 8B).
 
 ## Why webseeds don't change the torrent
 

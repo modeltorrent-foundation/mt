@@ -1,0 +1,14 @@
+{
+  "name": "mt-webtorrent-hybrid",
+  "private": true,
+  "description": "WebRTC/WSS seeder for catalog magnets. Equivalent of webtorrent-hybrid (npm v6 dropped wrtc).",
+  "license": "AGPL-3.0-or-later",
+  "type": "commonjs",
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@roamhq/wrtc": "0.10.0",
+    "webtorrent": "1.9.7"
+  }
+}

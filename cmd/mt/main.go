@@ -30,9 +30,8 @@ Usage:
 Seeding is ON by default after get. Pass --no-seed to stop after download.
 
 Pack bundles:
-  dev       Seed the testdata fixture bundle (Qwen/Qwen3-8B)
-  popular   Seed bundled small web demo models plus the Qwen fixture; hook for
-            curated real GGUFs later (currently offline-sized stand-ins only)
+  dev       Seed the testdata fixture bundle (Qwen/Qwen3-8B stub)
+  popular   Seed the live Apache-2.0 catalog GGUFs (3 small + Qwen3-8B)
 
 Environment:
   MT_CATALOG    Path to catalog.json (default: search upward for web/catalog.json)
@@ -240,10 +239,10 @@ var packDev = []packEntry{
 }
 
 var packPopular = []packEntry{
-	{modelID: "demo/tiny-gguf", catalogPath: "web/catalog.json"},
-	{modelID: "demo/tiny-safetensors", catalogPath: "web/catalog.json"},
-	{modelID: "demo/tiny-bundle", catalogPath: "web/catalog.json"},
-	{modelID: "Qwen/Qwen3-8B", catalogPath: "testdata/catalog.json"},
+	{modelID: "Qwen/Qwen3-0.6B-GGUF", catalogPath: "web/catalog.json"},
+	{modelID: "HuggingFaceTB/SmolLM2-360M-Instruct-GGUF", catalogPath: "web/catalog.json"},
+	{modelID: "Qwen/Qwen2.5-0.5B-Instruct-GGUF", catalogPath: "web/catalog.json"},
+	{modelID: "Qwen/Qwen3-8B-GGUF", catalogPath: "web/catalog.json"},
 }
 
 func cmdPack(args []string) int {
@@ -259,7 +258,7 @@ func cmdPack(args []string) int {
 		return runPack("popular", packPopular)
 	default:
 		fmt.Fprintf(os.Stderr, "mt pack: unknown bundle %q\n", name)
-		fmt.Fprintln(os.Stderr, "Available: dev (fixture bundle), popular (bundled small web demos + Qwen fixture)")
+		fmt.Fprintln(os.Stderr, "Available: dev (fixture bundle), popular (live Apache-2.0 catalog GGUFs)")
 		return 2
 	}
 }

@@ -26,9 +26,9 @@ Pick one; PROTOCOL.md stays frozen.
 
 | Issue | Wedge slice |
 |---|---|
-| [#2](https://github.com/modeltorrent-foundation/mt/issues/2) | Optional WebTorrent-hybrid seeder (not on the shared Hetzner box) |
+| [#2](https://github.com/modeltorrent-foundation/mt/issues/2) | WebTorrent-hybrid seeder (`deploy/hetzner/`; live on the shared VPS with Nice/memory caps, three small GGUFs only) |
 | [#3](https://github.com/modeltorrent-foundation/mt/issues/3) | LM Studio tracker / seed-after-download |
-| [#4](https://github.com/modeltorrent-foundation/mt/issues/4) | More redistributable GGUFs in `mt pack popular` |
+| [#4](https://github.com/modeltorrent-foundation/mt/issues/4) | `mt pack popular` seeds the live Apache-2.0 catalog GGUFs (3 small + 8B) |
 | [#5](https://github.com/modeltorrent-foundation/mt/issues/5) | Codeberg catalog git mirror is live at [codeberg.org/modeltorrent-foundation/mt](https://codeberg.org/modeltorrent-foundation/mt); keep it in sync |
 | [#6](https://github.com/modeltorrent-foundation/mt/issues/6) | Bootstrap domain pointer (`modeltorrent.org`) |
 | [#7](https://github.com/modeltorrent-foundation/mt/issues/7) | Counsel + 501(c)3 papers for GOVERNANCE.md |

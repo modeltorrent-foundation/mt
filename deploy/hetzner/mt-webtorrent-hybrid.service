@@ -1,0 +1,26 @@
+[Unit]
+# WebRTC/WSS seeder for browser WebTorrent. Complements mt-seed@* (TCP/UDP).
+# Seeds the three small Apache-2.0 GGUFs only — not Qwen3-8B (RAM).
+Description=Model Torrent WebTorrent-hybrid seeder (WebRTC/WSS)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+Environment=MT_SEED_ROOT=/opt/model-torrent
+Environment=NODE_ENV=production
+WorkingDirectory=/opt/model-torrent/hybrid
+ExecStart=/opt/model-torrent/node/bin/node /opt/model-torrent/hybrid/seed.js
+Restart=always
+RestartSec=30
+# Polite tenant on the shared LinkedIn box. MemoryHigh reclaim first;
+# MemoryMax is a hard stop so Chrome/linkedin-leads never get OOM-killed.
+Nice=10
+IOSchedulingClass=idle
+CPUQuota=25%
+MemoryHigh=384M
+MemoryMax=768M
+TasksMax=128
+
+[Install]
+WantedBy=multi-user.target

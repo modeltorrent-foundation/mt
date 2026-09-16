@@ -21,7 +21,6 @@ curl -sI -H 'Origin: https://modeltorrent.org' \
 ```
 
 `Access-Control-Allow-Origin: *` (or the Pages origin) plus `Accept-Ranges:
-bytes` is the signal the catalog UI can fetch the tiny fixture without a
-WebRTC seeder. Do not run `webtorrent-hybrid` on the Hetzner box that already
-hosts other workloads — HTTP webseeds plus the TCP/UDP `mt-seed@*` units are
-the supported path.
+bytes` is the signal the catalog UI can fetch over HTTP. A memory-capped
+`mt-webtorrent-hybrid` unit on Hetzner additionally seeds the three small
+GGUFs over WebRTC/WSS; 8B stays on R2 + `mt-seed`.

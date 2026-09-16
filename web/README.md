@@ -42,9 +42,12 @@ Clicking **Download in browser**:
 5. On completion, renders **Save file** links (one per torrent file) using blob URLs.
 
 The always-on `mt` seeder speaks **TCP/UDP**. It will not appear as a WebRTC
-peer. We do **not** run `webtorrent-hybrid` on the shared Hetzner box. Browser
-fetch is webseed-backed; the CLI is the reliable path if CORS or WebTorrent
-fails. Copy magnet is always the fallback.
+peer by itself. A memory-capped `webtorrent-hybrid` equivalent
+(`mt-webtorrent-hybrid` on the shared VPS) seeds the three small Apache-2.0
+GGUFs over WebRTC/WSS so the browser button can find a peer. Qwen3-8B stays
+R2 webseed + TCP/UDP `mt-seed` — it is too large for WebRTC on that box.
+If CORS or WebTorrent fails, the CLI is the reliable path. Copy magnet is
+always the fallback.
 
 Cards also show:
 
@@ -73,9 +76,9 @@ via TCP/UDP **will not** connect to the browser unless there is also a WebRTC
 peer.
 
 Public WSS trackers are on every generated magnet. HTTPS webseeds (R2, plus
-same-origin `web/fixtures/` on Pages) are what make the demo button complete
-without a hybrid seeder. If a card has no HTTP webseed, the button stays
-disabled and **Copy** remains the UX.
+same-origin `web/fixtures/` on Pages) plus the hybrid seeder for the three
+small GGUFs are what make the demo button complete. If a card has no HTTP
+webseed, the button stays disabled and **Copy** remains the UX.
 
 ## Demo data
 
