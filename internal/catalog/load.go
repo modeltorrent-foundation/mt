@@ -67,8 +67,8 @@ func loadManifest(catalogRoot, manifestPath string) (manifest.Manifest, error) {
 	return manifest.Parse(b)
 }
 
-// FindCatalog walks upward from start looking for testdata/catalog.json or
-// catalog.json in the current directory.
+// FindCatalog walks upward from start looking for the published web catalog,
+// then a local catalog.json, then the testdata fixture catalog.
 func FindCatalog(start string) (string, error) {
 	dir, err := filepath.Abs(start)
 	if err != nil {
@@ -76,8 +76,9 @@ func FindCatalog(start string) (string, error) {
 	}
 	for {
 		for _, name := range []string{
-			filepath.Join("testdata", "catalog.json"),
+			filepath.Join("web", "catalog.json"),
 			"catalog.json",
+			filepath.Join("testdata", "catalog.json"),
 		} {
 			p := filepath.Join(dir, name)
 			if _, err := os.Stat(p); err == nil {

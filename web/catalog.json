@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-16T05:33:06Z",
+  "generatedAt": "2026-09-16T08:02:31Z",
   "models": [
     {
       "license": {
@@ -60,6 +60,16 @@
       "manifest": "models/Qwen/Qwen2.5-0.5B-Instruct-GGUF/manifest.json",
       "modelId": "Qwen/Qwen2.5-0.5B-Instruct-GGUF",
       "sizeBytes": 491400032
+    },
+    {
+      "license": {
+        "redistributable": true,
+        "spdx": "Apache-2.0"
+      },
+      "magnet": "magnet:?xt=urn:btih:9170cc8e37e43d8a269093ea93b53bd741bf3958\u0026xt=urn:btmh:1220f31e1bc1bc940c8a82c3428a5596761417c0ea5df02cba5c01ce5cdec4fa965c\u0026dn=Qwen3-8B-Q4_K_M.gguf\u0026tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337%2Fannounce\u0026tr=udp%3A%2F%2Fopen.demonii.com%3A1337%2Fannounce\u0026tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A6969%2Fannounce\u0026tr=udp%3A%2F%2Fexodus.desync.com%3A6969%2Fannounce\u0026tr=udp%3A%2F%2Ftracker.torrent.eu.org%3A451%2Fannounce\u0026tr=udp%3A%2F%2Fopen.stealth.si%3A80%2Fannounce\u0026tr=wss%3A%2F%2Ftracker.openwebtorrent.com\u0026tr=wss%3A%2F%2Ftracker.webtorrent.dev\u0026ws=https%3A%2F%2Fpub-60d277f41b154e4f826375a17187b003.r2.dev%2FQwen%2FQwen3-8B-GGUF%2FQwen3-8B-Q4_K_M.gguf",
+      "manifest": "models/Qwen/Qwen3-8B-GGUF/manifest.json",
+      "modelId": "Qwen/Qwen3-8B-GGUF",
+      "sizeBytes": 5027783488
     }
   ],
   "schemaVersion": 1

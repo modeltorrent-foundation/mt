@@ -50,11 +50,14 @@ type realModel struct {
 	license string // SPDX id (must be on the allowlist)
 }
 
-// The first wave: small, ungated, Apache-2.0 GGUFs (SCOPE.md §"Small first").
+// The first wave: ungated, Apache-2.0 GGUFs (SCOPE.md §"Small first"),
+// plus one useful-size Q4_K_M. Existing publish.torrent files are left
+// untouched so btih/btmh stay identical unless MT_REGEN_EXISTING=1.
 var realModels = []realModel{
 	{modelID: "Qwen/Qwen3-0.6B-GGUF", slug: "qwen3-0.6b", file: "Qwen3-0.6B-Q8_0.gguf", license: "Apache-2.0"},
 	{modelID: "HuggingFaceTB/SmolLM2-360M-Instruct-GGUF", slug: "smollm2-360m", file: "smollm2-360m-instruct-q8_0.gguf", license: "Apache-2.0"},
 	{modelID: "Qwen/Qwen2.5-0.5B-Instruct-GGUF", slug: "qwen2.5-0.5b", file: "qwen2.5-0.5b-instruct-q4_k_m.gguf", license: "Apache-2.0"},
+	{modelID: "Qwen/Qwen3-8B-GGUF", slug: "qwen3-8b", file: "Qwen3-8B-Q4_K_M.gguf", license: "Apache-2.0"},
 }
 
 func main() {
@@ -85,6 +88,15 @@ func main() {
 			fatal("license not on allowlist:", rm.modelID, rm.license)
 		}
 		src := filepath.Join(staging, rm.slug, rm.file)
+		existingTorrent := filepath.Join(webRoot, "models", filepath.FromSlash(rm.modelID), "publish.torrent")
+		if _, err := os.Stat(existingTorrent); err == nil && os.Getenv("MT_REGEN_EXISTING") == "" {
+			fmt.Printf("skip %s: already published (set MT_REGEN_EXISTING=1 to rebuild)\n", rm.modelID)
+			continue
+		}
+		if _, err := os.Stat(src); err != nil {
+			fmt.Printf("skip %s: missing %s\n", rm.modelID, src)
+			continue
+		}
 		hash, size, err := blob.HashFile(src)
 		if err != nil {
 			fatal("hash", src, err)

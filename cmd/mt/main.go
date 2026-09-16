@@ -35,7 +35,7 @@ Pack bundles:
             curated real GGUFs later (currently offline-sized stand-ins only)
 
 Environment:
-  MT_CATALOG    Path to catalog.json (default: search upward for testdata/catalog.json)
+  MT_CATALOG    Path to catalog.json (default: search upward for web/catalog.json)
   MT_ROOT       Repo root for fixture paths`
 
 // run returns a process exit code so it is testable.

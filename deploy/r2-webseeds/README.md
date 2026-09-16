@@ -14,9 +14,10 @@ webseed host for the first-wave models.
   `deploy/hetzner/`). Leave those `mt-seed@*` units as a bonus BitTorrent
   peer — do not upgrade or replace that VPS for webseeds.
 - HTTP webseeds are **live** on the public `mt-webseeds` bucket:
-  `https://pub-60d277f41b154e4f826375a17187b003.r2.dev`. The three first-wave
-  GGUFs are in the catalog magnets as `&ws=` (infohashes unchanged). Weights
-  must **not** go in the private `claude-intercept-research` research bucket.
+  `https://pub-60d277f41b154e4f826375a17187b003.r2.dev`. First-wave GGUFs plus
+  Qwen3-8B Q4_K_M are in the catalog magnets as `&ws=` (existing infohashes
+  unchanged). Weights must **not** go in the private `claude-intercept-research`
+  research bucket. Do **not** copy the 8B onto the Hetzner seeder.
 
 ## Why webseeds don't change the torrent
 
@@ -42,6 +43,7 @@ So the public bucket must serve these exact object keys (path = `modelId/file`):
 | `Qwen/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q8_0.gguf`                                    | 639446688   |
 | `HuggingFaceTB/SmolLM2-360M-Instruct-GGUF/smollm2-360m-instruct-q8_0.gguf`     | 386404992   |
 | `Qwen/Qwen2.5-0.5B-Instruct-GGUF/qwen2.5-0.5b-instruct-q4_k_m.gguf`            | 491400032   |
+| `Qwen/Qwen3-8B-GGUF/Qwen3-8B-Q4_K_M.gguf`                                      | 5027783488  |
 | `demo/tiny-gguf/Q4_K_M.gguf` (64 KiB browser fixture)                           | 65536       |
 
 `MT_WEBSEED_BASE` is the bucket's public base URL with **no trailing slash**.

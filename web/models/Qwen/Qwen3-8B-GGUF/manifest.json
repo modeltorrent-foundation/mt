@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "modelId": "Qwen/Qwen3-8B-GGUF",
+  "files": [
+    {
+      "path": "Qwen3-8B-Q4_K_M.gguf",
+      "size": 5027783488,
+      "sha256": "d98cdcbd03e17ce47681435b5150e34c1417f50b5c0019dd560e4882c5745785"
+    }
+  ],
+  "license": {
+    "spdx": "Apache-2.0",
+    "redistributable": true
+  },
+  "publisher": {
+    "keyId": "ed25519:modeltorrent-foundation-2026",
+    "signature": "j64EjmlGBhPLU2B2uR8FM2u5BWTvCjMovKmdDSZ0w6fT8Ci9sQMLzqB4PQxQkztevKuFWloYcR9aEyL2tUqHCg=="
+  },
+  "magnet": "magnet:?xt=urn:btih:9170cc8e37e43d8a269093ea93b53bd741bf3958\u0026xt=urn:btmh:1220f31e1bc1bc940c8a82c3428a5596761417c0ea5df02cba5c01ce5cdec4fa965c\u0026dn=Qwen3-8B-Q4_K_M.gguf\u0026tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337%2Fannounce\u0026tr=udp%3A%2F%2Fopen.demonii.com%3A1337%2Fannounce\u0026tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A6969%2Fannounce\u0026tr=udp%3A%2F%2Fexodus.desync.com%3A6969%2Fannounce\u0026tr=udp%3A%2F%2Ftracker.torrent.eu.org%3A451%2Fannounce\u0026tr=udp%3A%2F%2Fopen.stealth.si%3A80%2Fannounce\u0026tr=wss%3A%2F%2Ftracker.openwebtorrent.com\u0026tr=wss%3A%2F%2Ftracker.webtorrent.dev\u0026ws=https%3A%2F%2Fpub-60d277f41b154e4f826375a17187b003.r2.dev%2FQwen%2FQwen3-8B-GGUF%2FQwen3-8B-Q4_K_M.gguf",
+  "webseeds": [
+    "https://pub-60d277f41b154e4f826375a17187b003.r2.dev/Qwen/Qwen3-8B-GGUF/Qwen3-8B-Q4_K_M.gguf"
+  ],
+  "createdAt": "2026-09-16T08:02:31Z"
+}
