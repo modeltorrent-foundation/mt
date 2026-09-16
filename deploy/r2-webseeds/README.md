@@ -11,18 +11,12 @@ webseed host for the first-wave models.
 ## Status
 
 - Torrents, signed manifests, and the always-on Hetzner swarm are live (see
-  `deploy/hetzner/`). The published magnets already work P2P. Leave those
-  `mt-seed@*` units as a bonus BitTorrent peer — do not upgrade or replace
-  that VPS for webseeds, and do not provision a dedicated seeder VPS for this.
-- Webseeds are **not yet in the catalog**: they require a *public* `mt-webseeds`
-  bucket with a public domain (`r2.dev` or a custom domain). Blocked on
-  **owner Cloudflare consent** (dashboard login or `wrangler login` with
-  Workers/R2 write). The only R2 credentials currently on this machine are
-  scoped to a **private** research bucket (`claude-intercept-research`) — model
-  weights must **not** go there.
-- Everything else is ready: the 3 real GGUFs are staged locally (SHA-256
-  matches the signed manifests) and the generator reproduces byte-identical
-  infohashes when `MT_WEBSEED_BASE` is set.
+  `deploy/hetzner/`). Leave those `mt-seed@*` units as a bonus BitTorrent
+  peer — do not upgrade or replace that VPS for webseeds.
+- HTTP webseeds are **live** on the public `mt-webseeds` bucket:
+  `https://pub-60d277f41b154e4f826375a17187b003.r2.dev`. The three first-wave
+  GGUFs are in the catalog magnets as `&ws=` (infohashes unchanged). Weights
+  must **not** go in the private `claude-intercept-research` research bucket.
 
 ## Why webseeds don't change the torrent
 
@@ -49,28 +43,15 @@ So the public bucket must serve these exact object keys (path = `modelId/file`):
 | `HuggingFaceTB/SmolLM2-360M-Instruct-GGUF/smollm2-360m-instruct-q8_0.gguf`     | 386404992   |
 | `Qwen/Qwen2.5-0.5B-Instruct-GGUF/qwen2.5-0.5b-instruct-q4_k_m.gguf`            | 491400032   |
 
-`MT_WEBSEED_BASE` is the bucket's public base URL with **no trailing slash**,
-e.g. `https://pub-<hash>.r2.dev` or `https://models.<yourdomain>`.
+`MT_WEBSEED_BASE` is the bucket's public base URL with **no trailing slash**.
+The live first-wave base is `https://pub-60d277f41b154e4f826375a17187b003.r2.dev`.
 
-## One-time provisioning (needs the account owner)
+## Adding more objects
 
-Pick either path. Both need R2 permissions this machine's tokens don't have.
+`wrangler r2 object put` rejects files over 300 MiB. Use an S3 token scoped
+to `mt-webseeds` (not the private research bucket) and multipart upload.
 
-### A. Dashboard (fastest)
-
-1. R2 → **Create bucket** → name e.g. `mt-webseeds` (Standard, auto region).
-2. Bucket → **Settings** → **Public access**: either enable the **r2.dev dev
-   subdomain** (gives `https://pub-<hash>.r2.dev`) or **Connect a custom domain**
-   (e.g. `models.example.org`, needs the zone on Cloudflare).
-3. R2 → **Manage API Tokens** → **Create API token** → Object Read & Write,
-   scoped to `mt-webseeds`. Save the Access Key ID + Secret.
-
-### B. wrangler (CLI)
-
-The wrangler OAuth token on this box is `pages:write` + `user:read` +
-`account:read` only. `wrangler r2` returns `Authentication error [code: 10000]`.
-There is no separate `r2:` OAuth scope in wrangler 4.132; Workers write is the
-one that has to be re-consented:
+To recreate the bucket on a new account:
 
 ```bash
 npx wrangler login --scopes workers:write --scopes account:read --scopes user:read --scopes pages:write
@@ -78,17 +59,11 @@ npx wrangler r2 bucket create mt-webseeds
 npx wrangler r2 bucket dev-url enable mt-webseeds   # prints https://pub-<hash>.r2.dev
 ```
 
-`wrangler login` opens Cloudflare OAuth in the default browser and waits on
-`localhost:8976`. An agent cannot complete Google password / Cloudflare consent
-from a signed-out profile. After you click Allow, continue with the upload
-block below.
-
-## Upload + wire in (once the bucket + creds exist)
+Then upload and wire the catalog:
 
 ```bash
 # 1) Upload the exact seeded bytes (keys must match the layout table above).
-#    Using an S3 token scoped to the new bucket (NOT the private research one):
-export AWS_ACCESS_KEY_ID=...        # new bucket token
+export AWS_ACCESS_KEY_ID=...        # mt-webseeds token, not the research bucket
 export AWS_SECRET_ACCESS_KEY=...
 export AWS_ENDPOINT_URL=https://<accountid>.r2.cloudflarestorage.com
 B=mt-webseeds
@@ -101,7 +76,7 @@ aws s3 cp .work/dl/qwen2.5-0.5b/qwen2.5-0.5b-instruct-q4_k_m.gguf \
 
 # 2) Regenerate catalog + signed manifests with the public base URL.
 #    (.work/publisher.key is reused, so magnets/infohashes stay identical.)
-MT_WEBSEED_BASE=https://pub-<hash>.r2.dev go run ./scripts/gen_real_models.go
+MT_WEBSEED_BASE=https://pub-60d277f41b154e4f826375a17187b003.r2.dev go run ./scripts/gen_real_models.go
 
 # 3) Verify each webseed serves the right bytes (200 + Content-Length).
 for u in \

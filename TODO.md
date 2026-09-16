@@ -12,17 +12,11 @@ Do not post to Reddit or boost the social copy until real models are seeding.
       `deploy/hetzner/` — DHT + trackers, auto-restart, survives reboot.
       Cross-internet swarm fetch verified end-to-end, checksum passed.
       Merged to `main` via PR #1.)
-      - [ ] HTTP webseeds (BEP-19): runbook + generator ready
-            (`deploy/r2-webseeds/`); **blocked on owner Cloudflare consent**
-            for a *public* `mt-webseeds` bucket + r2.dev (or custom) domain.
-            Existing S3 token is scoped only to private
-            `claude-intercept-research` — model weights must not go there.
-            Wrangler OAuth currently has pages/user/account, not R2/Workers
-            write. Verified locally that adding `MT_WEBSEED_BASE` keeps the
-            v1/v2 infohash identical (magnet only gains an additive `&ws=`
-            hint). Must not webseed from Hugging Face (SCOPE) or leak a
-            personal IP. Hetzner `mt-seed@*` units stay as a bonus BitTorrent
-            peer; they are not the HTTP durability layer.
+      - [x] HTTP webseeds (BEP-19): public `mt-webseeds` bucket at
+            `https://pub-60d277f41b154e4f826375a17187b003.r2.dev`.
+            Three Apache-2.0 GGUFs uploaded; HEAD 200 + matching
+            Content-Length. Regenerated magnets keep identical `btih`/`btmh`
+            and add `&ws=`. Hetzner `mt-seed@*` units left as a bonus peer.
 - [ ] User-facing README / release binaries (`go install` works after this push)
 - [ ] CI + 8–10 `good first issue` tickets
 - [ ] Second catalog mirror (Codeberg/GitLab)
