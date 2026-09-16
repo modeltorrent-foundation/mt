@@ -11,13 +11,18 @@ webseed host for the first-wave models.
 ## Status
 
 - Torrents, signed manifests, and the always-on Hetzner swarm are live (see
-  `deploy/hetzner/`). The published magnets already work P2P.
-- Webseeds are **not yet in the catalog**: they require a *public* bucket with a
-  public domain (`r2.dev` dev URL or a custom domain). The only R2 credentials
-  currently on this machine are scoped to a **private** research bucket
-  (`claude-intercept-research`) — model weights must **not** go there.
-- Everything else is ready: the 3 real GGUFs are staged locally and the
-  generator reproduces byte-identical infohashes when `MT_WEBSEED_BASE` is set.
+  `deploy/hetzner/`). The published magnets already work P2P. Leave those
+  `mt-seed@*` units as a bonus BitTorrent peer — do not upgrade or replace
+  that VPS for webseeds, and do not provision a dedicated seeder VPS for this.
+- Webseeds are **not yet in the catalog**: they require a *public* `mt-webseeds`
+  bucket with a public domain (`r2.dev` or a custom domain). Blocked on
+  **owner Cloudflare consent** (dashboard login or `wrangler login` with
+  Workers/R2 write). The only R2 credentials currently on this machine are
+  scoped to a **private** research bucket (`claude-intercept-research`) — model
+  weights must **not** go there.
+- Everything else is ready: the 3 real GGUFs are staged locally (SHA-256
+  matches the signed manifests) and the generator reproduces byte-identical
+  infohashes when `MT_WEBSEED_BASE` is set.
 
 ## Why webseeds don't change the torrent
 
@@ -62,14 +67,21 @@ Pick either path. Both need R2 permissions this machine's tokens don't have.
 
 ### B. wrangler (CLI)
 
-The wrangler OAuth token on this box lacks R2 scope (R2 API returns
-`Authentication error [code: 10000]`). Refresh it first:
+The wrangler OAuth token on this box is `pages:write` + `user:read` +
+`account:read` only. `wrangler r2` returns `Authentication error [code: 10000]`.
+There is no separate `r2:` OAuth scope in wrangler 4.132; Workers write is the
+one that has to be re-consented:
 
 ```bash
-wrangler login          # re-consent; include R2 (Workers R2 Storage) scope
-wrangler r2 bucket create mt-webseeds
-wrangler r2 bucket dev-url enable mt-webseeds   # -> https://pub-<hash>.r2.dev
+npx wrangler login --scopes workers:write --scopes account:read --scopes user:read --scopes pages:write
+npx wrangler r2 bucket create mt-webseeds
+npx wrangler r2 bucket dev-url enable mt-webseeds   # prints https://pub-<hash>.r2.dev
 ```
+
+`wrangler login` opens Cloudflare OAuth in the default browser and waits on
+`localhost:8976`. An agent cannot complete Google password / Cloudflare consent
+from a signed-out profile. After you click Allow, continue with the upload
+block below.
 
 ## Upload + wire in (once the bucket + creds exist)
 

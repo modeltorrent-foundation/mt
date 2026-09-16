@@ -61,10 +61,10 @@ systemctl restart mt-seed@qwen3-0.6b  # bounce one seeder
 
 ## Notes
 
-- **Webseeds (BEP-19)** are intentionally omitted from the public catalog until a
-  neutral HTTP host with its own domain exists. Do not point webseeds at Hugging
-  Face (SCOPE.md forbids it at launch) or leak a personal IP into the public
-  catalog. Add them later via `MT_WEBSEED_BASE` when a durable, public mirror is
-  ready.
+- **This host is a BitTorrent peer, not the HTTP durability layer.** Leave the
+  `mt-seed@*` units running; do not upgrade or replace them for webseeds.
+  HTTP webseeds (BEP-19) are a public R2 bucket — see `deploy/r2-webseeds/`.
+  Do not point webseeds at Hugging Face (SCOPE.md) or leak a personal IP into
+  the public catalog.
 - **Disk hygiene**: model files are small on purpose. Keep an eye on the target's
   free space; the unit is memory-capped but not disk-capped.

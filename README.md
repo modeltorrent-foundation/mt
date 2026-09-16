@@ -39,6 +39,7 @@ cd web && python3 -m http.server 8080
 ```
 
 Seeding is on by default after `mt get`. Pass `--no-seed` to stop after download.
+You do not need our VPS — see [Run your own seeder](./docs/run-your-own-seeder.md).
 
 ## License
 

@@ -240,7 +240,8 @@ redistribution and the bytes are what they claim, it belongs
 ### Step 7. Seed it
 
 Submitting a listing you will not seed produces exactly the zero-seed graveyard
-we exist to fix.
+we exist to fix. You do not need our VPS — anyone with the files can seed.
+Short version: [docs/run-your-own-seeder.md](./docs/run-your-own-seeder.md).
 
 ```bash
 ./bin/mt seed ./downloads/<org>/<name>/snapshots/main   # seed what you have
@@ -360,7 +361,8 @@ first-class contributors
   the URL to the relevant manifests. Untrusted mirrors are safe to pull from,
   because clients verify per-file SHA-256.
 - **Seeder:** run `mt seed` or `mt pack popular` on a box that stays up. Thin
-  swarms first.
+  swarms first. `mt get` already seeds by default; a dedicated host is optional
+  ([docs/run-your-own-seeder.md](./docs/run-your-own-seeder.md)).
 - **Institutional partners** (university libraries, national archives, the
   Internet Archive) — please get in touch before mirroring at scale so we can
   supply the license provenance and written policy your legal team will want.
