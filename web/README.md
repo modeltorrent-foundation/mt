@@ -23,12 +23,28 @@ will serve the same files (fixtures under `testdata/fixtures/` back the demo SHA
 
 ## Browser download (WebTorrent)
 
-Each model card includes a **Download in browser** button. Clicking it:
+Each model card includes a **Download in browser** button when the magnet has an
+HTTP(S) webseed (or same-origin fixture files) plus public WSS trackers:
+
+- `wss://tracker.openwebtorrent.com`
+- `wss://tracker.webtorrent.dev`
+
+Those `tr=` / `ws=` params are **outside** the info dict. Adding them does not
+change `btih` / `btmh`. The magnet on the card is still copyable for
+qBittorrent and `mt get`.
+
+Clicking **Download in browser**:
 
 1. Parses the model's magnet URI from the loaded catalog.
 2. Starts a [WebTorrent](https://webtorrent.io/) download in the page (loaded from jsDelivr CDN).
-3. Shows live progress: percent complete, bytes downloaded/total, peer count, and download speed.
-4. On completion, renders **Save file** links (one per torrent file) using blob URLs.
+3. Pulls bytes from HTTPS webseeds (R2, or this site's `fixtures/` for demos) and any WebRTC peers the WSS trackers know about. The button feeds WebTorrent the catalog `publish.torrent` (piece map) plus `ws=` HTTP URLs — a magnet alone is not enough for webseeds.
+4. Shows live progress: percent complete, bytes downloaded/total, peer count, and download speed.
+5. On completion, renders **Save file** links (one per torrent file) using blob URLs.
+
+The always-on `mt` seeder speaks **TCP/UDP**. It will not appear as a WebRTC
+peer. We do **not** run `webtorrent-hybrid` on the shared Hetzner box. Browser
+fetch is webseed-backed; the CLI is the reliable path if CORS or WebTorrent
+fails. Copy magnet is always the fallback.
 
 Cards also show:
 
@@ -51,12 +67,15 @@ instead of hanging indefinitely.
 
 ### Known limitation: WebRTC / WSS only
 
-WebTorrent in the browser connects to peers over **WebRTC** and to webseeds over **WebSocket (WSS)**. A plain BitTorrent client seeding via TCP/UDP **will not** connect to the browser unless there is also:
+WebTorrent in the browser connects to peers over **WebRTC** and to HTTP
+webseeds over CORS-enabled `GET` / `Range`. A plain BitTorrent client seeding
+via TCP/UDP **will not** connect to the browser unless there is also a WebRTC
+peer.
 
-- a WebRTC-capable peer, or
-- a WebSocket tracker / WSS webseed in the magnet
-
-For the demo, **`demo/tiny-gguf`** has a real magnet, but browser download still requires someone to seed in a WebTorrent-compatible way (or a WSS webseed). Seeding with `mt get` alone uses classic BitTorrent wire protocol and may not satisfy the browser swarm. Use the CLI (`mt get`) for reliable fixture fetch during development; treat in-browser download as the production UX path once WSS webseeds or WebRTC seeds are available.
+Public WSS trackers are on every generated magnet. HTTPS webseeds (R2, plus
+same-origin `web/fixtures/` on Pages) are what make the demo button complete
+without a hybrid seeder. If a card has no HTTP webseed, the button stays
+disabled and **Copy** remains the UX.
 
 ## Demo data
 

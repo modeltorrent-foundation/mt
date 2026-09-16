@@ -95,7 +95,7 @@ func main() {
 			webseeds = []string{fmt.Sprintf("%s/%s/%s", webseedBase, slugPath(rm.modelID), rm.file)}
 		}
 
-		mi, magnet, err := torrentsvc.CreateWithTrackers([]string{src}, webseeds, torrentsvc.DefaultTrackers)
+		mi, magnet, err := torrentsvc.CreateWithTrackers([]string{src}, webseeds, torrentsvc.AnnounceTrackers())
 		if err != nil {
 			fatal("create torrent", rm.modelID, err)
 		}

@@ -1,24 +1,25 @@
 {
-  "createdAt": "2026-09-15T00:00:00Z",
+  "schemaVersion": 1,
+  "modelId": "demo/tiny-gguf",
   "files": [
     {
       "path": "Q4_K_M.gguf",
-      "sha256": "5795aa80667eef16e1ff7a477d30b2a3922930113b1a03db4b41ca571ec5a1d6",
-      "size": 65536
+      "size": 65536,
+      "sha256": "5795aa80667eef16e1ff7a477d30b2a3922930113b1a03db4b41ca571ec5a1d6"
     }
   ],
   "license": {
-    "redistributable": true,
-    "spdx": "MIT"
+    "spdx": "MIT",
+    "redistributable": true
   },
-  "magnet": "magnet:?xt=urn:btih:030640aae91e7d3f7a5407c4ba8d69c38feb31c0\u0026xt=urn:btmh:122019281105549c12b766a00b030fa633e55e528fc6f91991496f0ed94b3ad693a7\u0026dn=Q4_K_M.gguf",
-  "modelId": "demo/tiny-gguf",
   "publisher": {
     "keyId": "ed25519:demo000000000000000000000000000000000000000000000000000000",
     "signature": ""
   },
-  "schemaVersion": 1,
+  "magnet": "magnet:?xt=urn:btih:030640aae91e7d3f7a5407c4ba8d69c38feb31c0\u0026xt=urn:btmh:122019281105549c12b766a00b030fa633e55e528fc6f91991496f0ed94b3ad693a7\u0026dn=Q4_K_M.gguf\u0026tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337%2Fannounce\u0026tr=udp%3A%2F%2Fopen.demonii.com%3A1337%2Fannounce\u0026tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A6969%2Fannounce\u0026tr=udp%3A%2F%2Fexodus.desync.com%3A6969%2Fannounce\u0026tr=udp%3A%2F%2Ftracker.torrent.eu.org%3A451%2Fannounce\u0026tr=udp%3A%2F%2Fopen.stealth.si%3A80%2Fannounce\u0026tr=wss%3A%2F%2Ftracker.openwebtorrent.com\u0026tr=wss%3A%2F%2Ftracker.webtorrent.dev\u0026ws=https%3A%2F%2Fpub-60d277f41b154e4f826375a17187b003.r2.dev%2Fdemo%2Ftiny-gguf%2FQ4_K_M.gguf",
   "webseeds": [
-    "file://fixtures/demo/tiny-gguf"
-  ]
+    "file://fixtures/demo/tiny-gguf",
+    "https://pub-60d277f41b154e4f826375a17187b003.r2.dev/demo/tiny-gguf/Q4_K_M.gguf"
+  ],
+  "createdAt": "2026-09-15T00:00:00Z"
 }

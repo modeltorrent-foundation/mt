@@ -10,6 +10,11 @@
 const CATALOG_URL = "catalog.json";
 const NO_PEERS_GRACE_MS = 15_000;
 
+const WSS_TRACKERS = [
+  "wss://tracker.openwebtorrent.com",
+  "wss://tracker.webtorrent.dev",
+];
+
 /** @typedef {{ modelId: string, license?: { spdx?: string, redistributable?: boolean }, magnet?: string, sizeBytes?: number, manifest?: string }} CatalogEntry */
 /** @typedef {{ path: string, size: number, sha256: string }} ManifestFile */
 /** @typedef {{ seeders?: number, peers?: number, checksumOk?: boolean, lastWebseedOk?: string }} SwarmHealth */
@@ -93,6 +98,61 @@ function parseMagnetHashes(magnet) {
   };
 }
 
+/** Append key=value on a magnet without rewriting existing xt= identity params. */
+function appendMagnetParam(magnet, key, value) {
+  if (!magnet || !value) return magnet;
+  const encoded = encodeURIComponent(value);
+  if (magnet.includes(`${key}=${encoded}`) || magnet.includes(`${key}=${value}`)) {
+    return magnet;
+  }
+  const sep = magnet.includes("?") ? "&" : "?";
+  return `${magnet}${sep}${key}=${encoded}`;
+}
+
+/**
+ * Browser WebTorrent cannot speak TCP/UDP. Add public WSS trackers and rewrite
+ * catalog-relative file:// fixture webseeds to same-origin HTTP(S) URLs.
+ * HTTPS R2 webseeds are passed through unchanged (CORS must allow GET/Range).
+ *
+ * @param {string} magnet
+ * @param {string[]} webseeds
+ * @param {ManifestFile[]} files
+ */
+function browserMagnet(magnet, webseeds, files) {
+  let m = magnet;
+  for (const tr of WSS_TRACKERS) {
+    m = appendMagnetParam(m, "tr", tr);
+  }
+  const seeds = [];
+  for (const ws of webseeds || []) {
+    if (ws.startsWith("https://") || ws.startsWith("http://")) {
+      seeds.push(ws);
+    } else if (ws.startsWith("file://fixtures/")) {
+      const rel = ws.slice("file://".length).replace(/\/?$/, "/");
+      seeds.push(new URL(rel, document.baseURI).href);
+      if (Array.isArray(files) && files.length === 1 && files[0].path) {
+        seeds.push(new URL(rel + files[0].path, document.baseURI).href);
+      }
+    }
+  }
+  for (const ws of seeds) {
+    m = appendMagnetParam(m, "ws", ws);
+  }
+  return m;
+}
+
+/** True when the magnet (or same-origin fixtures) can actually feed WebTorrent. */
+function browserDownloadReady(magnet, webseeds) {
+  if (!magnet || isPlaceholderMagnet(magnet)) return false;
+  if (/[?&]ws=https?%3A/i.test(magnet) || /[?&]ws=https?:/i.test(magnet)) return true;
+  return (webseeds || []).some(
+    (ws) =>
+      ws.startsWith("https://") ||
+      ws.startsWith("http://") ||
+      ws.startsWith("file://fixtures/")
+  );
+}
+
 /** True when btih/btmh looks like a demo placeholder, not a live swarm. */
 function isPlaceholderMagnet(magnet) {
   if (!magnet || !magnet.startsWith("magnet:")) return true;
@@ -158,6 +218,8 @@ function renderCard(entry, files, health) {
 
   const magnetUri = entry.magnet || "";
   const placeholder = isPlaceholderMagnet(magnetUri);
+  const webseeds = Array.isArray(entry.webseeds) ? entry.webseeds : [];
+  const canBrowserDownload = browserDownloadReady(magnetUri, webseeds);
 
   const magnetUriEl = node.querySelector(".magnet-uri");
   const copyBtn = /** @type {HTMLButtonElement} */ (node.querySelector(".btn-copy-magnet"));
@@ -221,19 +283,41 @@ function renderCard(entry, files, health) {
 
   if (!magnetUri) {
     downloadBtn.disabled = true;
-    downloadHint.textContent = "No magnet URI in catalog.";
+    downloadHint.textContent = "No magnet URI in catalog. Copy is unavailable until this model is magnetized.";
   } else if (placeholder) {
     downloadBtn.disabled = true;
-    downloadHint.textContent = "Placeholder magnet — not yet magnetized. Use CLI when available.";
+    downloadHint.textContent = "Placeholder magnet — not yet magnetized. Copy is a stub; use the CLI when this entry is live.";
   } else if (!getWebTorrentClient()) {
     downloadBtn.disabled = true;
-    downloadHint.textContent = "WebTorrent failed to load from CDN.";
+    downloadHint.textContent =
+      "WebTorrent failed to load from CDN. Copy the magnet and use `mt get` or a desktop client.";
+  } else if (!canBrowserDownload) {
+    downloadBtn.disabled = true;
+    downloadHint.textContent =
+      "In-browser download needs an HTTP webseed or WebTorrent (WSS/WebRTC) seeder. Copy the magnet and run `mt get " +
+      (entry.modelId || "") +
+      "` — that path uses TCP/UDP plus R2 webseeds.";
   } else {
     downloadHint.textContent =
-      "Requires a live WebRTC/WSS seed or webseed. Plain CLI seeds may not connect to the browser.";
+      "Browser uses HTTP webseeds + WSS trackers (not the TCP/UDP CLI seeder). Copy the magnet for qBittorrent / `mt get`.";
   }
 
-  return { node, card, entry, magnetUri, placeholder, downloadBtn, downloadHint, progressWrap, copyBtn, magnetUriEl, livePeersEl };
+  return {
+    node,
+    card,
+    entry,
+    magnetUri,
+    placeholder,
+    canBrowserDownload,
+    webseeds,
+    files,
+    downloadBtn,
+    downloadHint,
+    progressWrap,
+    copyBtn,
+    magnetUriEl,
+    livePeersEl,
+  };
 }
 
 /** Update progress UI for an active torrent on a card. */
@@ -302,7 +386,7 @@ function renderSaveLinks(card, torrent, modelId) {
 }
 
 /** Wire download button and restore any in-flight download for this model. */
-function setupDownloadHandlers(card, entry, magnetUri, placeholder, downloadBtn, downloadHint, progressWrap, copyBtn, magnetUriEl) {
+function setupDownloadHandlers(card, entry, magnetUri, placeholder, canBrowserDownload, webseeds, files, downloadBtn, downloadHint, progressWrap, copyBtn, magnetUriEl) {
   const modelId = entry.modelId || "";
 
   copyBtn.addEventListener("click", () => {
@@ -318,7 +402,7 @@ function setupDownloadHandlers(card, entry, magnetUri, placeholder, downloadBtn,
     }
   });
 
-  if (placeholder || !magnetUri) return;
+  if (placeholder || !magnetUri || !canBrowserDownload) return;
 
   const existing = activeDownloads.get(modelId);
   if (existing?.torrent) {
@@ -327,7 +411,7 @@ function setupDownloadHandlers(card, entry, magnetUri, placeholder, downloadBtn,
   }
 
   downloadBtn.addEventListener("click", () => {
-    startBrowserDownload(card, entry, magnetUri, downloadBtn, downloadHint, progressWrap);
+    startBrowserDownload(card, entry, magnetUri, webseeds, files, downloadBtn, downloadHint, progressWrap);
   });
 }
 
@@ -370,18 +454,28 @@ function attachTorrentToCard(card, active, downloadBtn, downloadHint) {
 }
 
 /** Start a WebTorrent download for one catalog entry. */
-function startBrowserDownload(card, entry, magnetUri, downloadBtn, downloadHint, progressWrap) {
+function startBrowserDownload(card, entry, magnetUri, webseeds, files, downloadBtn, downloadHint, progressWrap) {
   const client = getWebTorrentClient();
   if (!client) return;
 
   const modelId = entry.modelId || "";
   const statusEl = card.querySelector(".download-status");
+  const magnet = browserMagnet(magnetUri, webseeds, files);
+  const torrentUrl = new URL(`models/${modelId}/publish.torrent`, document.baseURI).href;
+  const urlList = [];
+  for (const ws of webseeds || []) {
+    if (ws.startsWith("https://") || ws.startsWith("http://")) urlList.push(ws);
+    else if (ws.startsWith("file://fixtures/") && Array.isArray(files) && files.length === 1 && files[0].path) {
+      const rel = ws.slice("file://".length).replace(/\/?$/, "/");
+      urlList.push(new URL(rel + files[0].path, document.baseURI).href);
+    }
+  }
 
   downloadBtn.disabled = true;
   downloadBtn.textContent = "Downloading…";
-  downloadHint.textContent = "Connecting to swarm…";
+  downloadHint.textContent = "Connecting to HTTP webseed / WSS tracker…";
   progressWrap.hidden = false;
-  statusEl.textContent = "Searching for peers…";
+  statusEl.textContent = "Searching for peers and webseeds…";
   statusEl.classList.remove("download-status--ok", "download-status--warn");
   card.querySelector(".save-links").replaceChildren();
 
@@ -391,25 +485,30 @@ function startBrowserDownload(card, entry, magnetUri, downloadBtn, downloadHint,
 
   active.noPeersTimer = setTimeout(() => {
     if (!active.torrent || active.torrent.done) return;
-    if (active.torrent.numPeers === 0) {
-      statusEl.textContent = `No live seeders — try \`mt get ${modelId}\` from CLI`;
+    if (active.torrent.numPeers === 0 && !active.torrent.downloaded) {
+      statusEl.textContent = `No live WebTorrent seeders — try \`mt get ${modelId}\` from CLI`;
       statusEl.classList.add("download-status--warn");
       downloadHint.textContent =
-        "Browser downloads need WebRTC/WSS peers or a WSS-capable webseed. A plain BitTorrent CLI seed won't connect without a WebSocket tracker.";
+        "Copy the magnet above. The always-on seeder speaks TCP/UDP; this button needs HTTP webseeds (CORS) or a WebRTC peer.";
     }
   }, NO_PEERS_GRACE_MS);
 
-  client.add(magnetUri, (torrent) => {
+  const onTorrent = (torrent) => {
     active.torrent = torrent;
+    for (const file of torrent.files || []) {
+      file.select();
+    }
     attachTorrentToCard(card, active, downloadBtn, downloadHint);
 
     torrent.on("download", () => {
-      if (torrent.numPeers > 0 && statusEl.classList.contains("download-status--warn")) {
+      if (statusEl.classList.contains("download-status--warn")) {
         statusEl.textContent = "Connected — downloading…";
         statusEl.classList.remove("download-status--warn");
       }
     });
-  }, (err) => {
+  };
+
+  const onFail = (err) => {
     activeDownloads.delete(modelId);
     if (active.noPeersTimer) clearTimeout(active.noPeersTimer);
     downloadBtn.disabled = false;
@@ -417,7 +516,23 @@ function startBrowserDownload(card, entry, magnetUri, downloadBtn, downloadHint,
     statusEl.textContent = err?.message || "Failed to start download.";
     statusEl.classList.add("download-status--warn");
     downloadHint.textContent = `Try \`mt get ${modelId}\` from CLI instead.`;
-  });
+  };
+
+  const addOpts = { announce: WSS_TRACKERS, urlList };
+
+  // Magnets alone have no piece map; WebTorrent cannot webseed until it has
+  // metadata. The catalog's publish.torrent carries that without changing btih.
+  // Pass the HTTP URL (not a Uint8Array) — webtorrent 1.9.7's parse-torrent
+  // rejects typed arrays with "Invalid torrent identifier".
+  try {
+    client.add(torrentUrl, addOpts, onTorrent);
+  } catch (err) {
+    try {
+      client.add(magnet, addOpts, onTorrent);
+    } catch (err2) {
+      onFail(err2);
+    }
+  }
 }
 
 function escapeHtml(s) {
@@ -457,8 +572,9 @@ async function render(models) {
       const manifestPath = entry.manifest || `models/${entry.modelId}/manifest.json`;
       const manifest = await fetchJSON(manifestPath);
       const files = Array.isArray(manifest?.files) ? manifest.files : [];
+      const webseeds = Array.isArray(manifest?.webseeds) ? manifest.webseeds : [];
       const health = await fetchJSON(healthPath(entry.modelId));
-      return { entry, files, health };
+      return { entry: { ...entry, webseeds }, files, health };
     })
   );
 
@@ -473,6 +589,9 @@ async function render(models) {
         entry,
         rendered.magnetUri,
         rendered.placeholder,
+        rendered.canBrowserDownload,
+        rendered.webseeds,
+        rendered.files,
         rendered.downloadBtn,
         rendered.downloadHint,
         rendered.progressWrap,

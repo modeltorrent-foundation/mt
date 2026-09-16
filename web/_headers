@@ -1,0 +1,6 @@
+/*
+  Access-Control-Allow-Origin: *
+  Access-Control-Allow-Methods: GET, HEAD
+  Access-Control-Allow-Headers: Range
+  Access-Control-Expose-Headers: Content-Length, Content-Range, Accept-Ranges, ETag
+*/

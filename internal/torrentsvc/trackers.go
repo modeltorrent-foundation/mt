@@ -17,6 +17,24 @@ var DefaultTrackers = []string{
 	"udp://open.stealth.si:80/announce",
 }
 
+// WebTorrentTrackers are public WebSocket trackers used by browser WebTorrent.
+// They are outside the info dict (same as UDP trackers): adding them does not
+// change btih/btmh. Classic TCP/UDP seeders ignore wss:// announce URLs.
+var WebTorrentTrackers = []string{
+	"wss://tracker.openwebtorrent.com",
+	"wss://tracker.webtorrent.dev",
+}
+
+// AnnounceTrackers is the UDP public set plus WebTorrent WSS trackers. Use this
+// when generating magnets that browsers might consume. Seeders that only speak
+// TCP/UDP still use DefaultTrackers when rebuilding metainfo from disk.
+func AnnounceTrackers() []string {
+	out := make([]string, 0, len(DefaultTrackers)+len(WebTorrentTrackers))
+	out = append(out, DefaultTrackers...)
+	out = append(out, WebTorrentTrackers...)
+	return out
+}
+
 // announceListFrom turns a flat tracker list into a BEP-12 announce-list where
 // every tracker is its own tier (all tiers tried).
 func announceListFrom(trackers []string) metainfo.AnnounceList {

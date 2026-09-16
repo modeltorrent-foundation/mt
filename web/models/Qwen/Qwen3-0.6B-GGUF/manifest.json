@@ -14,9 +14,9 @@
   },
   "publisher": {
     "keyId": "ed25519:modeltorrent-foundation-2026",
-    "signature": "+bJ0Q0hTpTLIWbNmBEIqj+S0yB1sppKrMHRNTXcd+3660SuENo067CO7taLs4GSOVFe4lsleFn8puap6BjVoBQ=="
+    "signature": "7drqldFUVTvac0mVCUqLXKnEbk9rkQNxKr8bmg0H0AvdKvF89X5zG8oxP2NR/wtUfwLUyJw95qanfTUON8EmAw=="
   },
-  "magnet": "magnet:?xt=urn:btih:23bbb1ba4c30d3c844e753182fabedd528983511\u0026xt=urn:btmh:12204bd4f72e4e957686f0bc48df4eeb128c892f75159c136333f9b9e1d4dbc92661\u0026dn=Qwen3-0.6B-Q8_0.gguf\u0026tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337%2Fannounce\u0026tr=udp%3A%2F%2Fopen.demonii.com%3A1337%2Fannounce\u0026tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A6969%2Fannounce\u0026tr=udp%3A%2F%2Fexodus.desync.com%3A6969%2Fannounce\u0026tr=udp%3A%2F%2Ftracker.torrent.eu.org%3A451%2Fannounce\u0026tr=udp%3A%2F%2Fopen.stealth.si%3A80%2Fannounce\u0026ws=https%3A%2F%2Fpub-60d277f41b154e4f826375a17187b003.r2.dev%2FQwen%2FQwen3-0.6B-GGUF%2FQwen3-0.6B-Q8_0.gguf",
+  "magnet": "magnet:?xt=urn:btih:23bbb1ba4c30d3c844e753182fabedd528983511\u0026xt=urn:btmh:12204bd4f72e4e957686f0bc48df4eeb128c892f75159c136333f9b9e1d4dbc92661\u0026dn=Qwen3-0.6B-Q8_0.gguf\u0026tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337%2Fannounce\u0026tr=udp%3A%2F%2Fopen.demonii.com%3A1337%2Fannounce\u0026tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A6969%2Fannounce\u0026tr=udp%3A%2F%2Fexodus.desync.com%3A6969%2Fannounce\u0026tr=udp%3A%2F%2Ftracker.torrent.eu.org%3A451%2Fannounce\u0026tr=udp%3A%2F%2Fopen.stealth.si%3A80%2Fannounce\u0026ws=https%3A%2F%2Fpub-60d277f41b154e4f826375a17187b003.r2.dev%2FQwen%2FQwen3-0.6B-GGUF%2FQwen3-0.6B-Q8_0.gguf\u0026tr=wss%3A%2F%2Ftracker.openwebtorrent.com\u0026tr=wss%3A%2F%2Ftracker.webtorrent.dev",
   "webseeds": [
     "https://pub-60d277f41b154e4f826375a17187b003.r2.dev/Qwen/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q8_0.gguf"
   ],

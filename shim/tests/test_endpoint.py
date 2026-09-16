@@ -14,8 +14,10 @@ import pytest
 from modeltorrent_hf import DEFAULT_ENDPOINT, resolve_endpoint, snapshot_download
 
 
-def test_resolve_endpoint_defaults():
-    assert resolve_endpoint({}) == DEFAULT_ENDPOINT
+def test_default_endpoint_is_operated_pages_mirror():
+    """Do not default users at modeltorrent.org — that domain is not ours."""
+    assert DEFAULT_ENDPOINT == "https://modeltorrent.pages.dev"
+    assert "modeltorrent.org" not in DEFAULT_ENDPOINT
 
 
 def test_resolve_endpoint_honors_hf_endpoint():

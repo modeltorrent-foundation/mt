@@ -1,29 +1,30 @@
 {
-  "createdAt": "2026-09-15T00:00:00Z",
+  "schemaVersion": 1,
+  "modelId": "demo/tiny-safetensors",
   "files": [
     {
       "path": "model.safetensors",
-      "sha256": "22e73069fca2a12436d0bde4b3a35c4a6c707273360c9e2945b9987e9bd5fa4e",
-      "size": 65536
+      "size": 65536,
+      "sha256": "22e73069fca2a12436d0bde4b3a35c4a6c707273360c9e2945b9987e9bd5fa4e"
     },
     {
       "path": "tokenizer.json",
-      "sha256": "d84648205ac9544626d4eada2184d52c706770f6805c53f74fac30787a6eab2b",
-      "size": 65536
+      "size": 65536,
+      "sha256": "d84648205ac9544626d4eada2184d52c706770f6805c53f74fac30787a6eab2b"
     }
   ],
   "license": {
-    "redistributable": true,
-    "spdx": "Apache-2.0"
+    "spdx": "Apache-2.0",
+    "redistributable": true
   },
-  "magnet": "magnet:?xt=urn:btih:33018037dbe9d2527f3cd065f21c3388cec3aa8e\u0026xt=urn:btmh:122015e5da1d297354c94a17d1214afcc8e20bb6bed2edafe3009318af40e36de7c9\u0026dn=tiny-safetensors",
-  "modelId": "demo/tiny-safetensors",
   "publisher": {
     "keyId": "ed25519:demo000000000000000000000000000000000000000000000000000000",
     "signature": ""
   },
-  "schemaVersion": 1,
+  "magnet": "magnet:?xt=urn:btih:33018037dbe9d2527f3cd065f21c3388cec3aa8e\u0026xt=urn:btmh:122015e5da1d297354c94a17d1214afcc8e20bb6bed2edafe3009318af40e36de7c9\u0026dn=tiny-safetensors\u0026tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337%2Fannounce\u0026tr=udp%3A%2F%2Fopen.demonii.com%3A1337%2Fannounce\u0026tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A6969%2Fannounce\u0026tr=udp%3A%2F%2Fexodus.desync.com%3A6969%2Fannounce\u0026tr=udp%3A%2F%2Ftracker.torrent.eu.org%3A451%2Fannounce\u0026tr=udp%3A%2F%2Fopen.stealth.si%3A80%2Fannounce\u0026tr=wss%3A%2F%2Ftracker.openwebtorrent.com\u0026tr=wss%3A%2F%2Ftracker.webtorrent.dev\u0026ws=https%3A%2F%2Fpub-60d277f41b154e4f826375a17187b003.r2.dev%2Fdemo%2Ftiny-safetensors%2F",
   "webseeds": [
-    "file://fixtures/demo/tiny-safetensors"
-  ]
+    "file://fixtures/demo/tiny-safetensors",
+    "https://pub-60d277f41b154e4f826375a17187b003.r2.dev/demo/tiny-safetensors/"
+  ],
+  "createdAt": "2026-09-15T00:00:00Z"
 }

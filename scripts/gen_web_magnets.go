@@ -11,10 +11,13 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"strings"
 	"time"
 
 	"github.com/modeltorrent-foundation/mt/internal/torrentsvc"
 )
+
+const demoHTTPWebseedBase = "https://pub-60d277f41b154e4f826375a17187b003.r2.dev"
 
 type demoModel struct {
 	modelID  string
@@ -32,7 +35,10 @@ var demos = []demoModel{
 		fixture:  "demo/tiny-gguf",
 		manifest: "models/demo/tiny-gguf/manifest.json",
 		license:  "MIT",
-		webseeds: []string{"file://fixtures/demo/tiny-gguf"},
+		webseeds: []string{
+			"file://fixtures/demo/tiny-gguf",
+			demoHTTPWebseedBase + "/demo/tiny-gguf/Q4_K_M.gguf",
+		},
 	},
 	{
 		modelID:  "demo/tiny-safetensors",
@@ -40,7 +46,10 @@ var demos = []demoModel{
 		fixture:  "demo/tiny-safetensors",
 		manifest: "models/demo/tiny-safetensors/manifest.json",
 		license:  "Apache-2.0",
-		webseeds: []string{"file://fixtures/demo/tiny-safetensors"},
+		webseeds: []string{
+			"file://fixtures/demo/tiny-safetensors",
+			demoHTTPWebseedBase + "/demo/tiny-safetensors/",
+		},
 	},
 	{
 		modelID:  "demo/tiny-bundle",
@@ -48,7 +57,10 @@ var demos = []demoModel{
 		fixture:  "demo/tiny-bundle",
 		manifest: "models/demo/tiny-bundle/manifest.json",
 		license:  "Apache-2.0",
-		webseeds: []string{"file://fixtures/demo/tiny-bundle"},
+		webseeds: []string{
+			"file://fixtures/demo/tiny-bundle",
+			demoHTTPWebseedBase + "/demo/tiny-bundle/",
+		},
 	},
 }
 
@@ -93,13 +105,21 @@ func main() {
 			absFiles = append(absFiles, dst)
 		}
 
-		mi, magnet, err := torrentsvc.Create(absFiles, nil)
+		var torrentWebseeds []string
+		for _, ws := range d.webseeds {
+			if strings.HasPrefix(ws, "http://") || strings.HasPrefix(ws, "https://") {
+				torrentWebseeds = append(torrentWebseeds, ws)
+			}
+		}
+		mi, magnet, err := torrentsvc.CreateWithTrackers(absFiles, torrentWebseeds, torrentsvc.AnnounceTrackers())
 		if err != nil {
-			fatal("Create", d.modelID, err)
+			fatal("CreateWithTrackers", d.modelID, err)
 		}
 		if magnet == "" || !hasPrefix(magnet, "magnet:") {
 			fatal("Create", d.modelID, "empty or invalid magnet")
 		}
+		magnet = torrentsvc.AppendMagnetTrackers(magnet, torrentsvc.WebTorrentTrackers)
+		magnet = torrentsvc.AppendMagnetWebseeds(magnet, torrentWebseeds)
 
 		torrentPath := filepath.Join(webRoot, filepath.Dir(d.manifest), "publish.torrent")
 		if err := os.WriteFile(torrentPath, mi.Raw, 0o644); err != nil {

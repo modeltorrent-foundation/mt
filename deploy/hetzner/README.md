@@ -66,5 +66,8 @@ systemctl restart mt-seed@qwen3-0.6b  # bounce one seeder
   HTTP webseeds (BEP-19) are a public R2 bucket — see `deploy/r2-webseeds/`.
   Do not point webseeds at Hugging Face (SCOPE.md) or leak a personal IP into
   the public catalog.
+- **Do not install `webtorrent-hybrid` here.** This VPS is a polite tenant of
+  other workloads. Browser downloads use CORS-enabled HTTP webseeds + public
+  WSS trackers, not a WebRTC seeder on this box.
 - **Disk hygiene**: model files are small on purpose. Keep an eye on the target's
   free space; the unit is memory-capped but not disk-capped.

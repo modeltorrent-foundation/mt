@@ -42,6 +42,7 @@ So the public bucket must serve these exact object keys (path = `modelId/file`):
 | `Qwen/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q8_0.gguf`                                    | 639446688   |
 | `HuggingFaceTB/SmolLM2-360M-Instruct-GGUF/smollm2-360m-instruct-q8_0.gguf`     | 386404992   |
 | `Qwen/Qwen2.5-0.5B-Instruct-GGUF/qwen2.5-0.5b-instruct-q4_k_m.gguf`            | 491400032   |
+| `demo/tiny-gguf/Q4_K_M.gguf` (64 KiB browser fixture)                           | 65536       |
 
 `MT_WEBSEED_BASE` is the bucket's public base URL with **no trailing slash**.
 The live first-wave base is `https://pub-60d277f41b154e4f826375a17187b003.r2.dev`.
@@ -77,6 +78,9 @@ aws s3 cp .work/dl/qwen2.5-0.5b/qwen2.5-0.5b-instruct-q4_k_m.gguf \
 # 2) Regenerate catalog + signed manifests with the public base URL.
 #    (.work/publisher.key is reused, so magnets/infohashes stay identical.)
 MT_WEBSEED_BASE=https://pub-60d277f41b154e4f826375a17187b003.r2.dev go run ./scripts/gen_real_models.go
+
+# 2b) Browser downloads need CORS on the public bucket (see CORS.md).
+npx wrangler r2 bucket cors set mt-webseeds --file deploy/r2-webseeds/cors.json --force
 
 # 3) Verify each webseed serves the right bytes (200 + Content-Length).
 for u in \

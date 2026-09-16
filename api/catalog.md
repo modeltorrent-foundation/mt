@@ -5,7 +5,7 @@ All read endpoints are **anonymous** — no account, token, or phone number
 domain, or a content-addressed store. There is no write API in v1: publishing is
 done by adding a signed manifest to the catalog repo.
 
-Base is any mirror root (e.g. `https://modeltorrent.org/`, a raw git host, or an
+Base is any mirror root (e.g. `https://modeltorrent-foundation.github.io/mt/`, a raw git host, or an
 IPFS gateway). Identical bytes must serve from every mirror.
 
 ## `GET /catalog.json`
