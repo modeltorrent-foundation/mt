@@ -5,7 +5,7 @@
 BitTorrent meets Hugging Face. Open-weight models, content-addressed. A hub nobody can buy.
 
 **Catalog** — [modeltorrent.org](https://modeltorrent.org/)
-**Source** — [github.com/modeltorrent-foundation/mt](https://github.com/modeltorrent-foundation/mt)
+**Source** — [github.com/modeltorrent-foundation/mt](https://github.com/modeltorrent-foundation/mt) · [codeberg.org/modeltorrent-foundation/mt](https://codeberg.org/modeltorrent-foundation/mt)
 
 ```mermaid
 flowchart LR
@@ -28,7 +28,7 @@ Weights verify against a signed manifest. The HTTP webseed is an accelerator, ne
 
 Software is [AGPL-3.0-or-later](./LICENSE). Catalog metadata is [CC0-1.0](./CATALOG-LICENSE). Each weight keeps its publisher SPDX.
 
-Bootstrap domain: [modeltorrent.org](https://modeltorrent.org/). Mirrors: [modeltorrent.pages.dev](https://modeltorrent.pages.dev/), [modeltorrent-foundation.github.io/mt](https://modeltorrent-foundation.github.io/mt/). Second git remote: [docs/codeberg-mirror.md](./docs/codeberg-mirror.md) (first `--mirror` push still needs a Codeberg/GitLab login). Design: [SCOPE.md](./SCOPE.md). Governance: [GOVERNANCE.md](./GOVERNANCE.md).
+Bootstrap domain: [modeltorrent.org](https://modeltorrent.org/). Mirrors: [modeltorrent.pages.dev](https://modeltorrent.pages.dev/), [modeltorrent-foundation.github.io/mt](https://modeltorrent-foundation.github.io/mt/). Catalog git mirror: [codeberg.org/modeltorrent-foundation/mt](https://codeberg.org/modeltorrent-foundation/mt) ([docs/codeberg-mirror.md](./docs/codeberg-mirror.md)). Design: [SCOPE.md](./SCOPE.md). Governance: [GOVERNANCE.md](./GOVERNANCE.md).
 
 ## Dev
 

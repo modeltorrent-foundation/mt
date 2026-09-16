@@ -3,11 +3,14 @@
 The catalog is git. GitHub is one remote, not the identity. A second forge in a
 different jurisdiction is a preservation act ([GOVERNANCE.md §9](../GOVERNANCE.md)).
 
-**Status (2026-09-16):** the empty public repo is not live yet. Codeberg signup
-is CAPTCHA-gated; GitLab.com user `Unobtainiumrock` exists but GitHub OAuth
-needs an interactive 2FA/passkey. Do not publish a clone URL until
-`curl -sI https://codeberg.org/modeltorrent-foundation/mt` (or the GitLab
-equivalent) returns 200. Then add the local remote and run the script below.
+**Status (2026-09-16):** live. Public clone:
+
+- HTTPS: https://codeberg.org/modeltorrent-foundation/mt.git
+- SSH: `git@codeberg.org:modeltorrent-foundation/mt.git`
+
+`curl -sI https://codeberg.org/modeltorrent-foundation/mt` returns 200.
+`git ls-remote https://codeberg.org/modeltorrent-foundation/mt.git` lists `main`.
+The local remote name is `codeberg`. Re-run the script after GitHub pushes.
 
 ## If you already have a Codeberg account
 
@@ -23,6 +26,8 @@ equivalent) returns 200. Then add the local remote and run the script below.
 export CODEBERG_URL=git@codeberg.org:modeltorrent-foundation/mt.git
 ./scripts/mirror-to-codeberg.sh
 ```
+
+If SSH to `codeberg.org` drops on IPv6, force IPv4 (`ssh -4`, or `AddressFamily inet` in `~/.ssh/config`).
 
 HTTPS with a token (token is only in the env, never in git):
 
@@ -57,5 +62,5 @@ a catalog remote.
 ## What this is not
 
 - Not a webseed. Weights stay on BitTorrent + R2 (`deploy/r2-webseeds/`).
-- Not a domain. Humans can clone `https://codeberg.org/.../mt` if GitHub is
-  down; magnets still work with no git host at all.
+- Not a domain. Humans can clone `https://codeberg.org/modeltorrent-foundation/mt`
+  if GitHub is down; magnets still work with no git host at all.

@@ -34,8 +34,8 @@ Do not post to Reddit or boost the social copy until real models are seeding.
 - [x] CI + 8–10 `good first issue` tickets
       GitHub Actions `CI` (`go test ./...` + pytest shim) with README badge.
       Issues #2–#11 (`good first issue`).
-- [ ] Second catalog mirror (Codeberg/GitLab)
-      Script + docs: `scripts/mirror-to-codeberg.sh`, `docs/codeberg-mirror.md`.
-      First `--mirror` push is blocked on interactive Codeberg CAPTCHA or
-      GitHub 2FA for GitLab.com OAuth. Do not invent a clone URL that 404s.
+- [x] Second catalog mirror (Codeberg)
+      Live: https://codeberg.org/modeltorrent-foundation/mt (`curl -sI` 200).
+      Local remote `codeberg`. Re-run `./scripts/mirror-to-codeberg.sh` after
+      GitHub pushes. Docs: `docs/codeberg-mirror.md`.
 - [ ] Reply in r/LocalLLaMA `1w6bkkh` (Cereal_Grapeist torrent comment), then a build-log post

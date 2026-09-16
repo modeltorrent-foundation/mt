@@ -29,7 +29,7 @@ Pick one; PROTOCOL.md stays frozen.
 | [#2](https://github.com/modeltorrent-foundation/mt/issues/2) | Optional WebTorrent-hybrid seeder (not on the shared Hetzner box) |
 | [#3](https://github.com/modeltorrent-foundation/mt/issues/3) | LM Studio tracker / seed-after-download |
 | [#4](https://github.com/modeltorrent-foundation/mt/issues/4) | More redistributable GGUFs in `mt pack popular` |
-| [#5](https://github.com/modeltorrent-foundation/mt/issues/5) | Codeberg/GitLab catalog git mirror (second remote) |
+| [#5](https://github.com/modeltorrent-foundation/mt/issues/5) | Codeberg catalog git mirror is live at [codeberg.org/modeltorrent-foundation/mt](https://codeberg.org/modeltorrent-foundation/mt); keep it in sync |
 | [#6](https://github.com/modeltorrent-foundation/mt/issues/6) | Bootstrap domain pointer (`modeltorrent.org`) |
 | [#7](https://github.com/modeltorrent-foundation/mt/issues/7) | Counsel + 501(c)3 papers for GOVERNANCE.md |
 | [#8](https://github.com/modeltorrent-foundation/mt/issues/8) | Seed-pack poll: which models belong in `mt pack popular` |
