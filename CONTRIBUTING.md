@@ -19,6 +19,24 @@ decide). Tone matters too: we write and build like an archive, not like a warez
 scene — see [GOVERNANCE.md §13](./GOVERNANCE.md#13-name-and-framing) for why
 that costs us nothing and buys us mirror partners.
 
+### Good first issues (90-day wedge)
+
+The labeled tickets track [SCOPE.md's 90-day wedge](./SCOPE.md#90-day-wedge).
+Pick one; PROTOCOL.md stays frozen.
+
+| Issue | Wedge slice |
+|---|---|
+| [#2](https://github.com/modeltorrent-foundation/mt/issues/2) | Optional WebTorrent-hybrid seeder (not on the shared Hetzner box) |
+| [#3](https://github.com/modeltorrent-foundation/mt/issues/3) | LM Studio tracker / seed-after-download |
+| [#4](https://github.com/modeltorrent-foundation/mt/issues/4) | More redistributable GGUFs in `mt pack popular` |
+| [#5](https://github.com/modeltorrent-foundation/mt/issues/5) | Codeberg/GitLab catalog git mirror (second remote) |
+| [#6](https://github.com/modeltorrent-foundation/mt/issues/6) | Bootstrap domain pointer (`modeltorrent.org`) |
+| [#7](https://github.com/modeltorrent-foundation/mt/issues/7) | Counsel + 501(c)3 papers for GOVERNANCE.md |
+| [#8](https://github.com/modeltorrent-foundation/mt/issues/8) | Seed-pack poll: which models belong in `mt pack popular` |
+| [#9](https://github.com/modeltorrent-foundation/mt/issues/9) | Browser catalog UX (large GGUFs, save, CDN pin) |
+| [#10](https://github.com/modeltorrent-foundation/mt/issues/10) | `mt keygen` / `mt manifest sign` / `mt publish` |
+| [#11](https://github.com/modeltorrent-foundation/mt/issues/11) | Keep GitHub Pages and Cloudflare Pages catalogs in lockstep |
+
 Legal specifics in this document are engineering practice, **not legal advice**.
 Anything touching license interpretation or the allowlist needs counsel.
 

@@ -20,10 +20,10 @@ from typing import Iterable
 
 __all__ = ["resolve_endpoint", "snapshot_download", "DEFAULT_ENDPOINT"]
 
-# Live Cloudflare Pages catalog (modeltorrent.org is not owned by this project).
-# GitHub Pages mirror: https://modeltorrent-foundation.github.io/mt
+# Bootstrap catalog pointer we operate (Cloudflare Pages custom hostname).
+# Mirrors: https://modeltorrent.pages.dev and https://modeltorrent-foundation.github.io/mt
 # Override with HF_ENDPOINT.
-DEFAULT_ENDPOINT = "https://modeltorrent.pages.dev"
+DEFAULT_ENDPOINT = "https://modeltorrent.org"
 _USER_AGENT = "modeltorrent-hf/0.2"
 
 

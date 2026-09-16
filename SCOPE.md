@@ -77,7 +77,7 @@ The quieter NVIDIA risk is not bans. Several commenters (SporksInjected, DeepOra
 
 - Canonical identity is a **magnet / infohash / CID**, not a URL.
 - The catalog is a **git repo** anyone can clone and mirror.
-- A memorable domain (`modeltorrent.org` or similar) is a bootstrap pointer: search, docs, WebTorrent UI.
+- A memorable domain (`modeltorrent.org`) is a bootstrap pointer: search, docs, WebTorrent UI. Mirrors remain `modeltorrent.pages.dev` and `modeltorrent-foundation.github.io/mt`.
 - Run at least two independent HTTPS mirrors plus a git remote. A domain seizure must be a DNS event, not death.
 
 If the only copy of the index lives at one domain, we rebuilt Hugging Face with extra steps.

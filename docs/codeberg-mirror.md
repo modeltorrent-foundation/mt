@@ -3,6 +3,12 @@
 The catalog is git. GitHub is one remote, not the identity. A second forge in a
 different jurisdiction is a preservation act ([GOVERNANCE.md §9](../GOVERNANCE.md)).
 
+**Status (2026-09-16):** the empty public repo is not live yet. Codeberg signup
+is CAPTCHA-gated; GitLab.com user `Unobtainiumrock` exists but GitHub OAuth
+needs an interactive 2FA/passkey. Do not publish a clone URL until
+`curl -sI https://codeberg.org/modeltorrent-foundation/mt` (or the GitLab
+equivalent) returns 200. Then add the local remote and run the script below.
+
 ## If you already have a Codeberg account
 
 1. Create the org `modeltorrent-foundation` (or a user-owned repo) on

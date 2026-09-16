@@ -11,11 +11,11 @@ Do not post to Reddit or boost the social copy until real models are seeding.
       when an HTTP webseed exists; otherwise disabled with copy-magnet + `mt get`.
 - [x] Deploy `web/` (Pages or Cloudflare) — GitHub Pages workflow on
       `modeltorrent-foundation/mt` serves `web/` (after `make fixtures`).
-      Live: https://modeltorrent.pages.dev/ (Cloudflare Pages) and
+      Live: https://modeltorrent.org/ (Cloudflare Registrar + Pages custom
+      hostname; SSL/DNS may still be provisioning),
+      https://modeltorrent.pages.dev/ (Cloudflare Pages), and
       https://modeltorrent-foundation.github.io/mt/ (GitHub Pages workflow).
-      **modeltorrent.org is not owned; do not claim it.** Shim
-      `DEFAULT_ENDPOINT` points at the live Pages URL (`HF_ENDPOINT` overrides).
-      Domain registration remains a follow-up issue.
+      Shim `DEFAULT_ENDPOINT` is `https://modeltorrent.org` (`HF_ENDPOINT` overrides).
 - [x] 2–3 real Apache-2.0 GGUFs with magnets + a 24/7 seeder
       (Qwen3-0.6B-Q8_0, SmolLM2-360M-Instruct-Q8_0, Qwen2.5-0.5B-Instruct-Q4_K_M;
       signed manifests + hybrid v1/v2 magnets with public trackers in
@@ -34,7 +34,8 @@ Do not post to Reddit or boost the social copy until real models are seeding.
 - [x] CI + 8–10 `good first issue` tickets
       GitHub Actions `CI` (`go test ./...` + pytest shim) with README badge.
       Issues #2–#11 (`good first issue`).
-- [x] Second catalog mirror (Codeberg/GitLab)
+- [ ] Second catalog mirror (Codeberg/GitLab)
       Script + docs: `scripts/mirror-to-codeberg.sh`, `docs/codeberg-mirror.md`.
-      Creating the Codeberg repo needs a Codeberg account (signup documented).
+      First `--mirror` push is blocked on interactive Codeberg CAPTCHA or
+      GitHub 2FA for GitLab.com OAuth. Do not invent a clone URL that 404s.
 - [ ] Reply in r/LocalLLaMA `1w6bkkh` (Cereal_Grapeist torrent comment), then a build-log post

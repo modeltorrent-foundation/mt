@@ -15,7 +15,7 @@ npx wrangler r2 bucket cors list mt-webseeds
 Verify from a browser origin (not just `curl -I`):
 
 ```bash
-curl -sI -H 'Origin: https://modeltorrent-foundation.github.io' \
+curl -sI -H 'Origin: https://modeltorrent.org' \
   "$MT_WEBSEED_BASE/demo/tiny-gguf/Q4_K_M.gguf" \
   | grep -iE 'HTTP/|access-control-allow-origin|accept-ranges'
 ```
